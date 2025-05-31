@@ -1,0 +1,200 @@
+<div class="row">
+    <div class="col-md-3 col-xs-12">
+        <div class="card side-bar-card">
+            <div class="card-header">
+                Diseases
+            </div>
+            <div class="card-body side-bar-body">
+                <ngb-accordion>
+                    <ngb-panel *ngFor="let c of categories; let i = index">
+                        <ng-template ngbPanelHeader>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <button ngbPanelToggle (click)="changeSelectedIndex(i)" class="btn btn-link p-0">
+                                    {{c.category}} </button>
+                                <div class=" ml-auto">
+                                    <i *ngxPermissionsOnly="['doctor']" class="fas fa-plus-circle fa-lg text-info mt-2"
+                                        (click)="openSubCategoryModal(i)"></i>
+                                    <i *ngxPermissionsOnly="['doctor']" (click)="deletCategory(i)" type="button"
+                                        class="fas fa-trash ml-2 fa-lg mt-2 text-danger pull-right"></i>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div *ngFor="let d of c.subCategories; let k = index">
+                                <li class="d-flex pt-2">
+                                    <span style="cursor: pointer;" (click)="changeSubCategory(k)" class=" ml-3">
+                                        <b>{{d.disease}}</b></span>
+                                    <i *ngxPermissionsOnly="['doctor']" (click)="deletSubCategory(d)" type="button"
+                                        class="fas fa-trash fa-lg text-danger ml-auto mt-2"></i>
+                                </li>
+                                <hr>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+
+                <div *ngxPermissionsOnly="['doctor']">
+                    <ul>
+                        <li class="box-label"><a (click)="openDiseaseCategoryModal()" class="btn btn-info text-white">+
+                                New Category</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <loader *ngIf="isLoader"></loader>
+
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h4>{{ selectedIndex == null ? "NONE" : categories[selectedIndex]?.category}} </h4>
+                    <a role="button" herf="javascript:void(0)" (click)='refresh()' class="ml-auto">Refresh <i
+                            class="fas fa-sync"></i></a>
+
+                </div>
+                <hr>
+                <div class="d-flex mb-3">
+                    <div>
+                        <h5>Diagnosed: {{selectedSubCategory}}</h5>
+                    </div>
+                    <div *ngIf="!haveFollowUp" class="ml-auto">
+                        <button *ngxPermissionsOnly="['doctor']" class="btn btn-outline-info"
+                            [routerLink]="['add-followup',categories[selectedIndex]?._id]" type="button"><i
+                                class="fa fa-plus-circle"></i> Add FollowUp</button>
+                    </div>
+                    <div *ngIf="haveFollowUp" class="ml-auto">
+                        <button *ngxPermissionsOnly="['doctor']" class="btn btn-outline-info"
+                            (click)="clikcAddFollowUp()"
+                            [routerLink]="['add-followup',latestFollowUp._id,'category',categories[selectedIndex]?._id]"
+                            type="button"><i class="fa fa-plus-circle"></i> Add FollowUp</button>
+                    </div>
+                </div>
+                <!-- <div *ngIf="this.followUps.length == 0 || this.followUps == null">
+                    <h5>No History</h5>
+                </div> -->
+                <div *ngFor="let followUp of followUps; let i = index" class="card">
+                    <div *ngIf="this.followUps.length == 0 || this.followUps == null">
+                        <h5>No History</h5>
+                    </div>
+                    <div class="card-header d-flex">
+                        <button class="btn collapsed" [routerLink]="['followup',followUp._id]"
+                            type="button">{{followUp?.finalDiagnosis}}</button>
+
+                        <div class="ml-auto" style="padding-right: 10px; padding-top: 10px;">
+                            {{followUp?.diseaseCategory}}|{{followUp?.diseaseSubCategory}}
+
+                        </div>
+
+
+
+                        <div class="ml-auto" style="padding-right: 10px; padding-top: 10px;">
+                            {{followUp?.createdAt|date : 'medium'}}
+                        </div>
+                        <i *ngxPermissionsOnly="['doctor']" (click)="deleteFolowUp(i)" type="button"
+                            class="fas fa-trash ml-2 fa-lg mt-2 text-danger pull-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <loader *ngIf="isLoader"></loader>
+
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example" class="pagination">
+            <ul class="pagination" *ngIf="totalCount > limit">
+                <li class="page-item" *ngIf="page > 0">
+                    <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+
+                <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)"
+                    *ngIf="(totalCount/limit) >= 0">
+                    <a class="page-link" href="javascript:void(0)">1</a>
+                </li>
+
+
+                <li class="page-item" [ngClass]="{'active': page == 1}" *ngIf="(totalCount/limit) >= 1">
+                    <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+                </li>
+
+
+                <li class="page-item" [ngClass]="{'active': page == 2}" *ngIf="(totalCount/limit) >= 2">
+                    <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+                </li>
+
+                <li class="page-item" [ngClass]="{'active': page > 2}"
+                    *ngIf="((totalCount/limit) > 3) && (totalCount > (limit*(page+1)))">
+                    <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<!-- Create Disease Category Modal -->
+<ng-template #createDiseaseCategoryModal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="myModalLabel">Add Category</h4>
+        <a (click)='onClose()' type="button" class="close">×</a>
+    </div>
+    <div (keyup.enter)="saveCategory()" class="modal-body">
+        <form [formGroup]="form" class="form-horizontal">
+            <div class="form-group">
+                <!-- Role Name Input -->
+                <label class="col-md-12">Label Name:</label>
+                <div class="col-md-12 mt-3">
+                    <input formControlName="category" type="text" class="form-control"
+                        placeholder="Label Name(Required)">
+                    <small *ngIf="isFormSubmitted && f.category.errors && f.category.errors.required"
+                        class="text-danger">
+                        Enter Category
+                    </small>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a (click)='saveCategory()' type="submit" class="btn btn-info text-white waves-effect"
+            data-dismiss="modal">Save</a>
+        <a (click)='onClose()' type="button" class="btn btn-default waves-effect">Cancel</a>
+    </div>
+</ng-template>
+
+
+<!-- Create Disease Sub Category Modal -->
+<ng-template #createSubCategoryModal>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary" id="myModalLabel">Add Disease</h4>
+        <a (click)='onClose()' type="button" class="close">×</a>
+    </div>
+    <div (keyup.enter)="saveSubCategory()" class="modal-body">
+        <form [formGroup]="form2" class="form-horizontal">
+            <div class="form-group">
+                <!-- Disease Input -->
+                <label class="col-md-12">Subcategory of {{this.categories[this.selectedIndex].category }}:</label>
+                <div class="col-md-12 mt-3">
+                    <input formControlName="disease" type="text" class="form-control"
+                        placeholder="Disease Name(Required)">
+                    <small *ngIf="isFormSubmitted && f2.disease.errors && f2.disease.errors.required"
+                        class="text-danger">
+                        Enter disease
+                    </small>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a (click)='saveSubCategory()' type="submit" class="btn btn-info text-white waves-effect"
+            data-dismiss="modal">Save</a>
+        <a (click)='onClose()' type="button" class="btn btn-default waves-effect">Cancel</a>
+    </div>
+</ng-template>

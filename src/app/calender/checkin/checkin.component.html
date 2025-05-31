@@ -1,0 +1,133 @@
+<div class="card">
+  <div class="tab-content">
+    <div class="tab-pane active" id="profile" role="tabpanel">
+      <div class="card-body">
+        <h3 class="">{{appointment?.patient?.user.name}}</h3>
+        <hr>
+        <div class="row mt-2">
+          <div class="col-md-3 col-xs-6 b-r"><strong>{{appointment?.patient?.dob | age}}</strong><br>
+            <p class="text-muted">Age</p>
+          </div>
+          <div class="col-md-3 col-xs-6 b-r"><strong>Date of Birth</strong><br>
+            <p class="text-muted">{{appointment?.patient?.dob |  date:'MM/dd/yyyy'}}</p>
+          </div>
+          <div class="col-md-3 col-xs-6 b-r"><strong>E-mail</strong><br>
+            <p class="text-muted">{{appointment?.patient?.user.email}} </p>
+          </div>
+          <div class="col-md-3 col-xs-6"><strong>Phone</strong><br>
+            <p class="text-muted">{{appointment?.patient?.user.phone}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6 col-xs-6 b-r"><strong>Date & Time</strong><br>
+            <p class="text-muted">21/04/2019 02:15 PM (15 minutes)</p>
+          </div>
+          <div class="col-md-6 col-xs-6"><strong>Reason</strong><br>
+            <p class="text-muted">{{appointment?.reason}}</p>
+          </div>
+        </div>
+        <hr>
+        <form [formGroup]='form'>
+
+          <!-- Vitals -->
+          <h3 class="mt-2">Add Vitals</h3><br>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="mt-2 font-weight-semibold">Pulse</h4>
+            </div>
+            <div class="col-md-6">
+              <!-- Pulse Rate -->
+              <label class="">Pulse Rate(beats per min)</label>
+              <input formControlName='pulseRate' type="number" class="form-control mb-2" placeholder="Pulse Rate">
+
+              <!-- Pulse Volume -->
+              <label class="">Pulse Volume</label>
+              <select formControlName='pulseVolume' class="form-control mb-2">
+                <option value="">Select Pulse Volume</option>
+                <option *ngFor="let v of volume" [value]="v"> {{v}} </option>
+              </select>
+            </div>
+
+            <div class="col-md-6 m-b-20">
+              <!-- Pulse Ryhthm -->
+              <label class="">Pulse Rhythm</label>
+              <select formControlName="pulseRhythm" class="form-control mb-2">
+                <option value="">Select Pulse Rhythm</option>
+                <option *ngFor="let r of rhythm" [value]="r"> {{r}} </option>
+              </select>
+
+              <!-- Pulse Equality -->
+              <label class="">Pulse Equality</label>
+              <select formControlName="pulseEquality" class="form-control mb-2">
+                <option value="">Select Pulse Equality</option>
+                <option *ngFor="let e of equality" [value]="e"> {{e}} </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Blood Presure -->
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="mt-2 font-weight-semibold">Blood Pressure</h4>
+            </div>
+            <!-- Systolic -->
+            <div class="col-md-6">
+              <label class="">Systolic(mmhg)</label>
+              <input formControlName="systolic" type="number" class="form-control mb-2"
+                placeholder="Systolic Blood Pressure">
+            </div>
+            <!-- Diastolic -->
+            <div class="col-md-6">
+              <label class="">Diastolic(mmhg)</label>
+              <input formControlName="diastolic" type="number" class="form-control mb-2"
+                placeholder="Diastolic Blood Pressure">
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-12 m-b-20">
+              <label class="">Temperature(<span>&#8451;</span>)</label>
+              <select formControlName="temprature" class="form-control mb-2">
+                <option value="">Select Temperature</option>
+                <option *ngFor="let t of temp" [value]="t"> {{t }}<span>&#8451;</span>
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-12">
+              <label class="">Respiratory Rate (Cycles per Minute)</label>
+              <input formControlName="respiratoryRate" type="number" class="form-control mb-2"
+                placeholder="Respiratory Rate">
+            </div>
+
+            <div class="col-md-12">
+              <label class="">Weight(kg)</label>
+              <input formControlName="weight" type="number" class="form-control mb-2" placeholder="Weight(kg)">
+            </div>
+
+            <div class="col-md-12">
+              <label class="">Height(meter)</label>
+              <input formControlName="height" type="number" class="form-control mb-2" placeholder="Height(meter)">
+            </div>
+
+            <div class="col-md-12">
+              <label class="">Oxygen Saturation(%age)</label>
+              <input formControlName="oxygensaturation" type="number" class="form-control mb-2"
+                placeholder="Oxygen Saturation">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class=" row justify-content-end">
+    <div class="col-md-2">
+      <button type="button" (click)='onSave()' class="btn btn-success waves-effect waves-light">Continue</button>
+      <!-- [routerLink]="['patient',patient._id]" -->
+    </div>
+  </div>
+
+
+
+</div>

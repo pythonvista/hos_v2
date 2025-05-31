@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title m-b-0">Hospital Prescriptions</h5>
+                <hr>
+                <div class="table-responsive">
+                    <div id="myTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <!-- <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="myTable_length"><label>Show <select
+                                            name="myTable_length" aria-controls="myTable"
+                                            class="form-control form-control-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> entries</label></div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="myTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                                            class="form-control form-control-sm" placeholder=""
+                                            aria-controls="myTable"></label></div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="myTable" class="table table-striped dataTable no-footer" role="grid"
+                                    aria-describedby="myTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="No: activate to sort column descending"
+                                                style="width: 61px;">No</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Patient: activate to sort column ascending"
+                                                style="width: 202px;">Patient</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Doctor: activate to sort column ascending"
+                                                style="width: 166px;">Doctor</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Date: activate to sort column ascending"
+                                                style="width: 119px;">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let item of result?.docs; let i = index" (click)="onClick(item._id)"
+                                            role="row" class="odd">
+                                            <td class="sorting_1">{{i +1}}</td>
+                                            <td>{{item?.patient.name}}</td>
+                                            <td>{{item?.createdBy.name}}</td>
+                                            <td>{{item?.createdAt | date}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Pagination -->
+                                <ngb-pagination *ngIf="result && result?.totalDocs > limit"
+                                    [collectionSize]="result?.totalDocs" [pageSize]="limit" [(page)]="page"
+                                    (pageChange)="pageChange($event)">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                        <!-- Pagination / End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

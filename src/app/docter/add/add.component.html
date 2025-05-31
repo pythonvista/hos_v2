@@ -1,0 +1,269 @@
+<div class="card">
+    <div class="card-body" *ngIf="!isLoader">
+        <h5 class="card-title">Basic Information</h5>
+        <div class="form-material form-horizontal" [formGroup]="form">
+            <div class="">
+                <div class="col-md-4 pt-3 float-right">
+                    <div class="card">
+                        <input type="file" (change)="uploader.uploadAll()" ng2FileSelect [uploader]="uploader" #inp
+                            style="display: none;" />
+                        <div class="card-header text-center">
+                            <div class="edit-img">
+                                <img *ngIf="!f.image.value" [src]="url" alt="" class="rounded-circle">
+                                <img *ngIf="f.image.value" [src]="f.image.value|imageSrc" alt="" class="rounded-circle">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <button (click)="inputClick()" class="btn btn-primary btn-block pt-2"
+                                style="background: #50dff9; border: none;">
+                                <label>
+                                    Upload
+                                </label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <label class="col-md-12" for="example-text">Name</label>
+                    <div class="col-md-12">
+                        <input type="text" formControlName="name" class="form-control" placeholder="enter your name">
+                        <small *ngIf="isFormSubmitted && f.name.errors && f.name.errors.required" class="text-danger">
+                            Name is Required
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12"> Cadre</label>
+                    <div class="col-md-12">
+                        <select formControlName="cadre" class="form-control">
+                            <option value="">Select Cadre</option>
+                            <option *ngFor="let cadre of cadres" [value]="cadre">{{cadre}}</option>
+
+                        </select>
+                        <small *ngIf="isFormSubmitted && f.cadre.errors && f.cadre.errors.required" class="text-danger">
+                            Cadre is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isDept">
+                    <label class="col-md-12"> Department</label>
+                    <div class="col-md-12">
+
+                        <select formControlName="department" class="form-control">
+
+                            <option value="">Select Department</option>
+
+                            <option *ngFor="let d of departments" [value]="d">{{d}}</option>
+
+
+
+                        </select>
+                        <!-- Department Validation -->
+                        <small *ngIf="isFormSubmitted && f.department.errors && f.department.errors.required"
+                            class="text-danger">
+                            Department is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isSp">
+                    <label class="col-md-12"> Specialty</label>
+                    <div class="col-md-12">
+
+                        <select formControlName="specialty" class="form-control">
+
+                            <option value="">Select Specialty</option>
+
+                            <option *ngFor="let s of specialties" [value]="s">{{s}}</option>
+
+
+
+                        </select>
+                        <!-- Department Validation -->
+                        <small *ngIf="isFormSubmitted && f.specialty.errors && f.specialty.errors.required"
+                            class="text-danger">
+                            Specialty is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12" for="bdate">Date of Birth
+                    </label>
+                    <div class="input-group-append">
+                        <input class="form-control pl-3" placeholder="dd/mm/yyyy" [minDate]="minDate"
+                            [maxDate]="maxDate" name="dp" formControlName="dob" ngbDatepicker #d="ngbDatepicker"
+                            (blur)="d.close()">
+                        <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()"
+                            type="button"></button>
+                        <!-- Date of Birth Validation -->
+
+                    </div>
+                    <small *ngIf="isFormSubmitted && f.dob.errors && f.dob.errors.required" class=" pl-3 text-danger">
+                        Date of Birth is Required
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">Gender</label>
+                    <div class="col-md-12">
+                        <select formControlName="gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <!-- Gender Validation -->
+                        <small *ngIf="isFormSubmitted && f.gender.errors && f.gender.errors.required"
+                            class="text-danger">
+                            Gender is required
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <!-- Address -->
+            <div class="form-group">
+                <label class="col-md-12" for="example-text">Address
+                </label>
+                <div class="col-md-12">
+                    <input type="text" formControlName="address" class="form-control" placeholder="enter your address">
+                    <!-- Address Validation -->
+                    <small *ngIf="isFormSubmitted && f.address.errors && f.address.errors.required" class="text-danger">
+                        Address is Required
+                    </small>
+                </div>
+            </div>
+
+            <!-- City -->
+            <div class="form-group">
+                <label class="col-md-12" for="example-text">City
+                </label>
+                <div class="col-md-12">
+                    <input type="text" formControlName="city" class="form-control" placeholder="enter your city">
+                    <!-- City Validation -->
+                    <small *ngIf="isFormSubmitted && f.city.errors && f.city.errors.required" class="text-danger">
+                        City is Required
+                    </small>
+                </div>
+            </div>
+
+            <!-- State -->
+            <div class="form-group">
+                <label class="col-md-12">State</label>
+                <div class="col-md-12">
+                    <select formControlName="state" class="form-control">
+                        <option value="">Select State</option>
+                        <option *ngFor="let st of states" [value]="st">{{st}}</option>
+                    </select>
+                    <!-- State Validation -->
+                    <small *ngIf="isFormSubmitted && f.state.errors && f.state.errors.required" class="text-danger">
+                        State is Required
+                    </small>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label class="col-md-12">Email
+                </label>
+                <div class="col-md-12">
+                    <input type="email" formControlName="email" class="form-control" placeholder="enter your email">
+                    <!-- Email Validation -->
+                    <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.required" class="text-danger">
+                        Email is Required
+                    </small>
+                    <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.email" class="text-danger">
+                        Enter a valid Email
+                    </small>
+                </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label class="col-md-12" for="example-phone">Phone
+                </label>
+                <div class="col-md-12">
+                    <input type="text" formControlName="phone" num class="form-control" placeholder="enter your phone"
+                        data-mask="(999) 999-9999">
+                    <!-- Phone Number Validation -->
+                    <small *ngIf="isFormSubmitted && f.phone.errors && f.phone.errors.required" class="text-danger">
+                        Phone Number is Required
+                    </small>
+                    <small *ngIf="isFormSubmitted && f.phone.errors && f.phone.errors?.maxlength" class="text-danger">
+                        Phone Number's length is exceeded
+                    </small>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div *ngIf="!isEdit" class="form-group">
+                <label class="col-md-12" for="pwd">Password
+                </label>
+                <div class="col-md-12">
+                    <input type="password" formControlName="password" class="form-control"
+                        placeholder="enter your password">
+                    <!-- Password Valiation -->
+                    <small *ngIf="isFormSubmitted && f.password.errors && f.password.errors.required"
+                        class="text-danger">
+                        Password is required
+                    </small>
+                </div>
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+                <label class="col-md-12">Description</label>
+                <div class="col-md-12">
+                    <textarea formControlName="description" class="form-control" rows="3"></textarea>
+                    <!-- Description Validation -->
+                    <small *ngIf="isFormSubmitted && f.description.errors && f.description.errors.required"
+                        class="text-danger">
+                        Description is required
+                    </small>
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="button" [routerLink]="['/app/doctor']"
+                    class="btn btn-dark waves-effect waves-light">Cancel</button>
+                <button type="submit" (click)="onClickSave()"
+                    class="btn btn-info waves-effect waves-light m-l-10">Submit</button>
+            </div>
+
+        </div>
+    </div>
+    <loader *ngIf="isLoader"></loader>
+
+    <!-- Update Password -->
+    <div *ngxPermissionsOnly="['doctor']" class="modal-body">
+        <h5 class="card-title">Password & Security</h5>
+        <form [formGroup]="passwordForm" class="form-horizontal form-material">
+            <div class="form-group">
+                <!-- Old Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">Current Password</label>
+                    <input formControlName="password" type="password" class="form-control"
+                        placeholder="Current Password">
+                    <app-errors [form_control]="f2.password" [isSubmitted]="isPasswordFromSubmit"></app-errors>
+                </div>
+                <!-- New Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">New Password</label>
+                    <input formControlName="newPassword" type="password" class="form-control"
+                        placeholder="New Password">
+                    <app-errors [form_control]="f2.newPassword" [isSubmitted]="isPasswordFromSubmit"></app-errors>
+                </div>
+                <!-- Confirm Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">Confirm New Password
+                    </label>
+                    <input formControlName="confirmNewPassword" type="password" class="form-control"
+                        placeholder="Confirm New Password">
+                    <app-errors [form_control]="f2.confirmNewPassword" [isSubmitted]="isPasswordFromSubmit">
+                    </app-errors>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <a (click)="onSubmitPasswordForm()" class="btn btn-info text-white waves-effect">Change Password</a>
+        </div>
+    </div>
+</div>

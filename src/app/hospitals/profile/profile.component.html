@@ -1,0 +1,124 @@
+<!-- Row -->
+<div class="row" *ngIf="!isLoader">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="user-bg"> <img class="img-responsive card-img" alt="user"
+                    [src]="hospital?.user.image | imageSrc"> </div>
+            <div class="card-body">
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-12">
+                        <strong>Hospital Name</strong>
+                        <p>{{hospital?.user.name}}</p>
+                    </div>
+
+                </div>
+                <hr>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-6 cold b-r"><strong>Email ID</strong>
+                        <p>{{hospital?.user.email}}</p>
+                    </div>
+                    <div class="col-md-6 cold"><strong>Hotline</strong>
+                        <p>{{hospital?.user.phone}}</p>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <hr>
+                <!-- .row -->
+                <div class="row text-center m-t-10">
+                    <div class="col-md-12"><strong>Address</strong>
+                        <p *ngIf="hospital"> {{hospital?.user | address}}
+                        </p>
+
+                    </div>
+                </div>
+                <hr>
+                <button *ngxPermissionsOnly="['admin']" type="button" class="btn  btn-block "
+                    [ngClass]="hospital?.user?.active ? 'btn-outline-primary' : 'btn-outline-success'"
+                    (click)="markAsActive()" style="text-align: center;"> Mark as
+                    {{hospital?.user?.active ? 'Inactive' : 'Active'}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+
+            <!-- Nav tabs -->
+            <div style="padding-top: 10px; padding-right: 10px ;">
+                <ul class="nav nav-tabs profile-tab" role="tablist">
+                    <li class="nav-item"> <a class="nav-link" [ngClass]="{active: tab === 1}" data-toggle="tab"
+                            href="javascript::void(0)" (click)="onclickTab(1)" role="tab">About</a> </li>
+                    <li class="nav-item"> <a class="nav-link" [ngClass]="{active: tab === 2}" data-toggle="tab"
+                            href="javascript::void(0)" (click)="goToEdit()" role="tab">Update Details</a> </li>
+                    <li *ngIf="authService.currentUserValue._id !== hospital.user._id" class="nav-item">
+                        <a class="nav-link" href="javascript::void(0)" (click)="chat()"> <i
+                                class="fa fa-comment-alt"></i> Message</a>
+                    </li>
+                </ul>
+
+
+
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!--second tab-->
+                <div class="tab-pane " [ngClass]="{active: tab === 1}" id="profile" role="tabpanel">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-10 b-r"> <strong>Hospital ID</strong>
+
+                                <p class="text-muted">{{hospital?.user.username}}</p>
+                            </div>
+                            <div class="col-md-3 col-6 mb-10 b-r h-b"> <strong>Hotline</strong>
+
+                                <p class="text-muted">{{hospital?.user.phone}}</p>
+                            </div>
+                            <div class="col-md-3 col-6 b-r"> <strong>City</strong>
+
+                                <p class="text-muted">{{hospital?.user.city}}</p>
+                            </div>
+
+                            <div class="col-md-3 col-6"> <strong>State</strong>
+
+                                <p class="text-muted">{{hospital?.user.state}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3 col-6 b-r"> <strong>Director Name</strong>
+
+                                <p class="text-muted">{{hospital?.directorName}}</p>
+                            </div>
+                            <div class="col-md-3 col-6 b-r h-b"> <strong>Director Phone</strong>
+
+                                <p class="text-muted">{{hospital?.directorPhone}}</p>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <h3>Biography</h3>
+                        <p>
+                            {{hospital?.description}}
+                        </p>
+                        <h4 class="font-medium m-t-30">Status: &nbsp; <span class="label "
+                                [ngClass]="hospital?.user.active ? 'label-success' : 'label-primary'"
+                                style="padding: 10px;">
+                                {{hospital?.user.active ? 'Active' : 'Inactive'}}</span></h4>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+<loader *ngIf="isLoader"></loader>
+<!-- Row -->

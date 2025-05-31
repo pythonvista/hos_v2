@@ -1,0 +1,371 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card o-hidden">
+            <div class="card-body">
+
+
+                <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                    <li ngbNavItem>
+                        <a ngbNavLink>Upcoming</a>
+                        <ng-template ngbNavContent>
+                            <div class="table-responsive">
+                                <table class="table text-left" *ngIf="!isLoader">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <div *ngIf="upcommingReports.length <= 0">
+                                            <h5>No Record Found</h5>
+                                        </div>
+                                        <tr *ngFor="let item of upcommingReports; let i = index "
+                                            class="dataTables_wrapper">
+                                            <td class="table-srno">{{i + (page * limit)+1}}</td>
+                                            <td>
+                                                <p class="m-0"><a href="javascript:void(0)" (click)="openDetail(item)">
+                                                        {{item.subject}}</a></p>
+
+                                            </td>
+                                            <td class="table-srno"> {{item?.updatedAt | date:'d/MMM/y'}} </td>
+
+                                            <td><button type="button" class="btn btn-success" (click)="onAccept(item)">
+                                                    <i fa fa-check></i> Accept</button>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <loader *ngIf="isLoader"></loader>
+                                <!-- Pagination -->
+                                <!-- <nav aria-label="Page navigation example" class="pagination">
+                                    <ul class="pagination">
+                                        <li class="page-item" *ngIf="page > 0">
+                                            <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)">
+                                            <a class="page-link" href="javascript:void(0)">1</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 1}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 2}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page > 2}">
+                                            <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav> -->
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>Pending</a>
+                        <ng-template ngbNavContent>
+                            <div class="table-responsive">
+                                <table class="table text-left">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <div *ngIf="pendingReports.length <= 0">
+                                            <h5>No Record Found</h5>
+                                        </div>
+                                        <tr *ngFor="let item of pendingReports; let i = index "
+                                            class="dataTables_wrapper">
+                                            <td class="table-srno">{{i + (page * limit)+1}}</td>
+                                            <td>
+                                                <p class="m-0"><a href="javascript:void(0)" (click)="openDetail(item)">
+                                                        {{item.subject}}</a></p>
+
+                                            </td>
+                                            <td class="table-srno"> {{item?.updatedAt | date:'d/MMM/y'}} </td>
+
+
+
+
+
+
+                                            <td>
+                                                <button type="button" class="btn btn-danger" (click)="uplaod(item)">
+                                                    Upload</button>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <!-- Pagination -->
+                                <!-- <nav aria-label="Page navigation example" class="pagination">
+                                    <ul class="pagination">
+                                        <li class="page-item" *ngIf="page > 0">
+                                            <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)">
+                                            <a class="page-link" href="javascript:void(0)">1</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 1}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 2}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page > 2}">
+                                            <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav> -->
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>History</a>
+                        <ng-template ngbNavContent>
+                            <div class="table-responsive">
+                                <table class="table text-left">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <div *ngIf="historyReports.length <= 0">
+                                            <h5>No Record Found</h5>
+                                        </div>
+                                        <tr *ngFor="let item of historyReports; let i = index "
+                                            class="dataTables_wrapper">
+                                            <td class="table-srno">{{i + (page * limit)+1}}</td>
+                                            <td>
+                                                <p class="m-0"><a href="javascript:void(0)" (click)="openDetail(item)">
+                                                        {{item.subject}}</a></p>
+
+                                            </td>
+                                            <td class="table-srno"> {{item?.updatedAt | date:'d/MMM/y'}} </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="onClickEdit(item)"> Edit</button>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+
+                                </table>
+                                <!-- Pagination -->
+                                <!-- <nav aria-label="Page navigation example" class="pagination">
+                                    <ul class="pagination">
+                                        <li class="page-item" *ngIf="page > 0">
+                                            <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)">
+                                            <a class="page-link" href="javascript:void(0)">1</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 1}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+                                        </li>
+
+
+                                        <li class="page-item" [ngClass]="{'active': page == 2}">
+                                            <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+                                        </li>
+
+                                        <li class="page-item" [ngClass]="{'active': page > 2}">
+                                            <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav> -->
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalContent>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary">{{reportObj.subject}}</h4>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="form" class="form-horizontal">
+        <div class="modal-body">
+
+
+
+            <div class="form-group">
+                <label class="col-md-12">Description:
+                </label>
+                <div class="col-md-12">
+                    <textarea class="form-control" formControlName="description" rows="6"
+                        style="min-width: 100%"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-12">Files:
+                </label>
+                <div class="col-md-12">
+                    <input type="file" ng2FileSelect [uploader]="uploader" (change)="uploader.uploadAll()" multiple
+                        id="inputFileRef" style="display: none;" />
+                    <a (click)="inputClick()" class="btn btn-outline-primary full-width" href="javascript:void(0)">
+
+                        <i class="fa fa-camera"></i> Upload files
+                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                    </a>
+
+                </div>
+
+
+                  <!-- <div class="progress" style="margin-bottom: 0;" >
+                      <div class="progress-bar" role="progressbar" ></div>
+                  </div> -->
+                  <div *ngFor="let item of uploader.queue">
+                     <div class="progress" *ngIf="item.progress !== 100">
+                    <div  class="bar" [ngStyle]="{ 'width': item.progress + '%' }">
+                      <p class="percent">{{item.progress}}%</p>
+                    </div>
+                  </div>
+                  </div>
+
+
+
+                <br>
+                <div *ngIf="f.files.value && f.files.value.length>0" class="col-md-12">
+                    <div class="img_wrp" *ngFor="let url of f.files.value;let i = index">
+                        <img height=150 width=150 [src]="url|imageSrc" class="imgResponsiveMax" alt="" />
+
+
+                        <a class="close time" (click)="removeImage(i)" href="javascript:void(0)"> <i
+                                class=" fa fa-times"></i></a>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn  btn-info" (click)='onSubmit()'>save</button>
+        </div>
+
+    </form>
+</ng-template>
+
+
+<ng-template #ticket>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary">{{reportObj.subject}}</h4>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="form-group">
+
+            <label class="col-md-12">Category: {{reportObj.category}}</label>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-12">Sub Category: {{reportObj.subCategory}}</label>
+
+        </div>
+        <div class="form-group">
+
+            <label class="col-md-12">Status: {{reportObj.status}}</label>
+
+        </div>
+
+        <div class="form-group" *ngIf="reportObj.description !== ''">
+            <label class="col-md-12">Description:
+            </label>
+            <div class="col-md-12">
+                <p>{{reportObj.description}}</p>
+            </div>
+        </div>
+        <div *ngIf="!reportObj.files ||reportObj.files.length>0 " class="form-group">
+            <label class="col-md-12">Files:
+            </label>
+            <div class="col-md-12">
+                <ul class="list-group">
+
+                    <li *ngFor="let image of reportObj.files; let i = index" class="list-group-item">
+                        <a href="javascript:void(0)" (click)="openLightBox(i)">
+                            {{getImageName(image)}}
+                        </a>
+
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</ng-template>

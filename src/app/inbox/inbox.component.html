@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card m-b-0">
+                <!-- .chat-row -->
+                <div class="chat-main-box" *ngIf="!isLoader">
+                    <!-- .chat-left-panel -->
+                    <div class="chat-left-aside" [ngClass]="{'chat-none': isChat}">
+                        <div class="open-panel"><i class="ti-angle-right"></i></div>
+                        <div class="chat-left-inner">
+                            <div class="form-material">
+                                <input class="form-control p-2" [(ngModel)]='friendSerach'
+                                    (keyup)='getFriendSearhList()' type="text" placeholder="Search Contact">
+                            </div>
+                            <div class="left-scroll">
+                                <ul class="chatonline style-none ">
+                                    <li *ngFor="let item of friendSerachList">
+                                        <a [ngClass]="{'active': item._id === activeUser }" (click)="isChat = !isChat"
+                                            (click)="onChangeUser(item._id)" href="javascript:void(0)">
+                                            <div class="d-flex align-items-center">
+                                                <div class="chat-img mr-3">
+                                                    <img [src]="getImage(item.image)" alt="user-img" class="img-circle">
+                                                </div>
+                                                <span>{{item.name}} </span>
+                                            </div>
+
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                    <a href="javascript:void(0)" class="active"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh</span></a>
+                                </li> -->
+
+                                    <li class="p-20"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .chat-left-panel -->
+                    <!-- .chat-right-panel -->
+                    <div class="chat-right-aside chat-menu chat-none" [ngClass]="{'d-block': isChat}">
+                        <div class="chat-main-header">
+                            <div class="p-md-3 p-2 b-b d-flex align-items-center">
+                                <span (click)="isChat = !isChat"
+                                    class="fa fa-arrow-left back-arrow d-md-none d-block"></span>
+                                <h4 class="box-title mb-0">Chat Message</h4>
+                                <button *ngxPermissionsOnly="['hospital']" (click)='activeAdmin()'
+                                    class="ml-auto btn btn-info waves-effect waves-light m-r-10">Contact
+                                    Admin</button>
+                            </div>
+                        </div>
+
+                        <div class="chat-rboxc" #scrollMe>
+                            <ul class="chat-list p-3" *ngIf="chat">
+                                <!--chat Row -->
+                                <li [ngClass]="{'reverse' : c.createdBy._id !== currentUser._id}"
+                                    *ngFor="let c of chat">
+                                    <div *ngIf="c.createdBy._id === currentUser._id" class="chat-img">
+                                        <img [src]="getImage(c.createdBy.image)" alt="user" />
+                                    </div>
+                                    <div class="chat-content">
+                                        <h5>{{c?.createdBy?.name}}</h5>
+                                        <div class="box bg-light-info">{{c?.message}}</div>
+                                        <div class="chat-time">{{c?.date |date:'MMM d, h:mm a'}}</div>
+                                    </div>
+                                    <div *ngIf="c.createdBy._id !== currentUser._id" class="chat-img"><img
+                                            [src]="getImage(c.createdBy.image)" alt="user" /></div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="card-body border-top">
+                            <div class="row align-items-center">
+                                <div class="col-8 pr-0">
+                                    <textarea [(ngModel)]="message" placeholder="Type your message here"
+                                        (keyup)="keyDown($event)" class="form-control border-0"></textarea>
+                                </div>
+                                <div class="col-4 text-right pl-0">
+                                    <button type="button" (click)="sendMessage()"
+                                        class="btn btn-info btn-circle btn-lg"><i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .chat-right-panel -->
+                </div>
+                <loader *ngIf="isLoader"></loader>
+                <!-- /.chat-row -->
+            </div>
+        </div>
+    </div>

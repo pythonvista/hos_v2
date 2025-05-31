@@ -1,0 +1,75 @@
+.app-search{
+  position: relative;
+}
+.app-search i{
+  position: absolute;
+  left: 10px;
+  top: 24px;
+}
+.app-search .form-control {
+  padding: 6px 30px;
+}
+.message-center a .user-img {
+  height: 40px !important;
+}
+.message-center a .user-img img{
+  height: 100% !important;
+  object-fit: contain;
+}
+.scroll {
+    max-height: 410px !important;
+    overflow-y: auto !important;
+    /* margin-right: 20px; */
+    border-radius: 30px;
+
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgb(212, 203, 203);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #727272;
+    border-radius: 10px;
+  }
+  .profile-img{
+    height: 30px;
+    width: 30px;
+  }
+  .profile-img img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border: 1px solid lightgray;
+  }
+  @media (max-width: 1023px){
+  .d-flex {
+      display: flex !important;
+  }
+}
+@media (max-width: 767px){
+  .profile-img{
+    margin-right: 10px;
+  }
+  .hidden-xs{
+    display: none !important;
+  }
+  .app-search .form-control {
+    padding: 6px 26px !important;
+    width: 40px;
+  }
+  .app-search .form-control:focus {
+    width: 100% !important;
+}
+.app-search .form-control::placeholder{
+        font-size: 12px !important;
+}
+.topbar .top-navbar .navbar-nav>.nav-item>.nav-link {
+  padding-left: 10px;
+  padding-right: 10px
+}
+}

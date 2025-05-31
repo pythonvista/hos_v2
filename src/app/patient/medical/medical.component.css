@@ -1,0 +1,30 @@
+.side-bar-card{
+    margin-bottom: 0px !important;
+}
+.sidebar-card-body{
+    padding: 25px 0px !important;
+}
+ul{
+    list-style: none;
+    padding: 0px;
+}
+a {
+    color: black;
+}
+a:hover {
+    color: #f95c2e;
+}
+.set a:hover{
+    color: grey;
+}
+
+.text-bold{
+    font-style: bold;
+}
+
+h5, h4{
+    font-weight: 400;
+}
+label{
+    font-weight: 500;
+}

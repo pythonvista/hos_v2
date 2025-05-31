@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-12">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="form-row align-items-center">
+          <label class="col-2 text-right mb-0">Request Status: </label>
+          <div class="col-4">
+            <select (change)='getAll()' [(ngModel)]='query.status' class="form-control">
+              <option value="">All</option>
+              <option value=1>Pending</option>
+              <option value=2>Approved</option>
+              <option value=3>Rejected</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="demo-foo-addrow" class="table no-wrap table-bordered m-t-30 table-hover contact-list"
+            data-paging="true" data-paging-size="7">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let req of result?.docs; let i = index">
+                <td> {{i + ((page-1) * limit)+1}} </td>
+                <td>{{req?.name}}</td>
+                <td> {{req?.email}} </td>
+                <td> {{req?.phone}} </td>
+                <td><span *ngIf="req?.status ===1" class="badge badge-warning p-1"> {{req?.status |requestCategory}}</span>
+                  <span *ngIf="req?.status ===2" class="badge badge-success p-1"> {{req?.status |requestCategory}}</span>
+                  <span *ngIf="req?.status ===3" class="badge badge-danger p-1"> {{req?.status |requestCategory}}</span> </td>
+
+                <td>
+                  <a class="m-r-10" href="javascript:void(0)">
+                    <i (click)="navigateToDetail(req?._id)" class="fas fa-eye"></i>
+                  </a>
+                  <button *ngIf="req?.status === 2" type="submit"
+                    class="btn btn-success waves-effect waves-light m-r-10">Approved</button>
+
+                  <button *ngIf="req?.status !== 2" type="submit" (click)='naviagteToaddHos(req?._id)'
+                    class="btn btn-success waves-effect waves-light m-r-10">Approve</button>
+
+                  <button *ngIf="req?.status ===1" (click)='reject(req?._id,i)' type="button"
+                    class="btn btn-danger waves-effect waves-light">Reject</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Pagination -->
+          <ngb-pagination *ngIf="result && result?.totalDocs > limit" [collectionSize]="result?.totalDocs"
+            [pageSize]="limit" [(page)]="page" (pageChange)="pageChange($event)">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- .left-aside-column-->

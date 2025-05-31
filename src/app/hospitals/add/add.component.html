@@ -1,0 +1,205 @@
+<div class="card">
+    <div class="card-body" *ngIf="!isLoader">
+        <h5 class="card-title">Basic Information</h5>
+        <div [formGroup]="form" class="form-material form-horizontal">
+            <div class="">
+                <div class="col-md-4 pt-3 float-right">
+                    <div class="card">
+                        <input type="file" (change)="uploader.uploadAll()" ng2FileSelect [uploader]="uploader" #inp
+                            style="display: none;" />
+                        <div class="card-header text-center">
+                            <div class="edit-img">
+                                <img *ngIf="!f.image.value" [src]="url" alt="" class="rounded-circle">
+                                <img *ngIf="f.image.value" [src]="f.image.value|imageSrc" alt="" class="rounded-circle">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <button (click)="inputClick()" class="btn btn-primary btn-block pt-2"
+                                style="background: #50dff9; border: none;">
+                                <label>
+                                    Upload
+                                </label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">Name
+                    </label>
+                    <div class="col-md-12 capatalize-text">
+                        <input type="text" alphaspace formControlName="name" name="example-text" class="form-control"
+                            placeholder="enter  name">
+                        <small *ngIf="isFormSubmitted && f.name.errors && f.name.errors.required" class="text-danger">
+                            Name is Required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">E-mail
+                    </label>
+                    <div class="col-md-12">
+                        <input type="email" formControlName="email" name="example-text" class="form-control"
+                            placeholder="Enter  e-mail">
+                        <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.required" class="text-danger">
+                            Email is Required.
+                        </small>
+                        <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.email" class="text-danger">
+                            Email must be a valid email address.
+                        </small>
+                    </div>
+                </div>
+                <div *ngIf="!isEdit" class="form-group">
+                    <label class="col-md-12" for="example-text">Password
+                    </label>
+                    <div class="col-md-12">
+                        <input type="password" formControlName="password" name="example-text" class="form-control"
+                            placeholder="Enter  Password">
+                        <small *ngIf="isFormSubmitted && f.password.errors && f.password.errors.required"
+                            class="text-danger">
+                            Password is Required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">Hospital Address
+                    </label>
+                    <div class="col-md-12 capatalize-text">
+                        <input type="text" formControlName="address" name="example-text" class="form-control"
+                            placeholder="enter  Address">
+                        <small *ngIf="isFormSubmitted && f.address.errors && f.address.errors.required"
+                            class="text-danger">
+                            Address is Required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">City
+                    </label>
+                    <div class="col-md-12 capatalize-text">
+                        <input type="text" alphaspace formControlName="city" name="example-text" class="form-control"
+                            placeholder="enter  city">
+                        <small *ngIf="isFormSubmitted && f.city.errors && f.city.errors.required" class="text-danger">
+                            City is Required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-md-12">State</label>
+                <div class="col-md-12">
+                    <select formControlName="state" class="form-control">
+                        <option value="">Select State</option>
+                        <option *ngFor="let st of states" [value]="st">{{st}}</option>
+                    </select>
+                    <small *ngIf="isFormSubmitted && f.state.errors && f.state.errors.required" class="text-danger">
+                        State is Required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-12" for="example-text">Hotline
+                </label>
+                <div class="col-md-12">
+                    <input type="text" num formControlName="phone" name="example-text" class="form-control"
+                        placeholder="enter  number">
+                    <small *ngIf="isFormSubmitted && f.phone.errors && f.phone.errors.required" class="text-danger">
+                        Phone is Required.
+                    </small>
+
+                    <small *ngIf="isFormSubmitted && f.phone.errors && f.phone.errors?.maxlength" class="text-danger">
+                        Phone Number's length is exceeded
+                    </small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-12" for="example-text">Director Name
+                </label>
+                <div class="col-md-12">
+                    <input type="text" formControlName="directorName" name="example-text" class="form-control"
+                        placeholder="enter  Director Name">
+                    <small *ngIf="isFormSubmitted && f.directorName.errors && f.directorName.errors.required"
+                        class="text-danger">
+                        Director Name is Required.
+                    </small>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-12" for="example-text">Director Phone
+                </label>
+                <div class="col-md-12">
+                    <input type="text" num formControlName="directorPhone" name="example-text" class="form-control"
+                        placeholder="Enter Director number">
+                    <small *ngIf="isFormSubmitted && f.directorPhone.errors && f.directorPhone.errors.required"
+                        class="text-danger">
+                        Director Phone is Required.
+                    </small>
+                    <small *ngIf="isFormSubmitted && f.directorPhone.errors && f.directorPhone.errors?.maxlength"
+                        class="text-danger">
+                        Phone Number's length is exceeded
+                    </small>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label class="col-md-12">Description</label>
+                <div class="col-md-12">
+                    <textarea formControlName="description" class="form-control" rows="3"></textarea>
+                    <!-- Description Validation -->
+                    <!-- <small *ngIf="isFormSubmitted && f.description.errors && f.description.errors.required"
+                        class="text-danger">
+                        Description is required
+                    </small> -->
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="button" [routerLink]="['/app/hospitals']"
+                    class="btn btn-dark waves-effect waves-light">Cancel</button>
+                <button type="submit" (click)="onSave()"
+                    class="btn btn-info waves-effect waves-light m-l-10">Submit</button>
+            </div>
+
+
+        </div>
+    </div>
+    <loader *ngIf="isLoader"></loader>
+
+    <!-- Update Password -->
+    <div *ngxPermissionsOnly="['hospital']" class="modal-body">
+        <h5 class="card-title">Password & Security</h5>
+        <form [formGroup]="passwordForm" class="form-horizontal form-material">
+            <div class="form-group">
+                <!-- Old Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">Current Password</label>
+                    <input formControlName="password" type="password" class="form-control"
+                        placeholder="Current Password">
+                    <app-errors [form_control]="f2.password" [isSubmitted]="isPasswordFromSubmit"></app-errors>
+                </div>
+                <!-- New Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">New Password</label>
+                    <input formControlName="newPassword" type="password" class="form-control"
+                        placeholder="New Password">
+                    <app-errors [form_control]="f2.newPassword" [isSubmitted]="isPasswordFromSubmit"></app-errors>
+                </div>
+                <!-- Confirm Password -->
+                <div class="col-md-12 m-b-20">
+                    <label class="col-md-12" for="example-text">Confirm New Password
+                    </label>
+                    <input formControlName="confirmNewPassword" type="password" class="form-control"
+                        placeholder="Confirm New Password">
+                    <app-errors [form_control]="f2.confirmNewPassword" [isSubmitted]="isPasswordFromSubmit">
+                    </app-errors>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <a (click)="onSubmitPasswordForm()" class="btn btn-info text-white waves-effect">Change Password</a>
+        </div>
+    </div>
+
+
+</div>

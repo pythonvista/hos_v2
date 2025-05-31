@@ -1,0 +1,133 @@
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body" *ngIf="!isLoader">
+        <h3 class="card-title text-center mb-md-4">Request Detail</h3>
+        <div [formGroup]="form" class="form-material form-horizontal">
+          <div class="col-md-12">
+            <div class="form-row align-items-center border-bottom form-group">
+              <label class="col-6" for="example-text"> Hospital Name
+              </label>
+              <div class="col-6 capatalize-text">
+                <input type="text" alphaspace formControlName="name" name="example-text" class="form-control">
+              </div>
+            </div>
+            <div class="form-row align-items-center border-bottom form-group">
+              <label class="col-6" for="example-text">E-mail
+              </label>
+              <div class="col-6">
+                <input type="email" formControlName="email" name="example-text" class="form-control">
+
+              </div>
+            </div>
+            <div class="form-row align-items-center border-bottom form-group">
+              <label class="col-6" for="example-text">Hotline
+              </label>
+              <div class="col-6">
+                <input type="text" num formControlName="phone" name="example-text" class="form-control">
+
+              </div>
+            </div>
+
+            <div class="form-row align-items-center border-bottom form-group">
+              <label class="col-6" for="example-text">Hospital Address
+              </label>
+              <div class="col-6 capatalize-text">
+                <input type="text" formControlName="address" name="example-text" class="form-control">
+
+              </div>
+            </div>
+            <div class="form-row align-items-center border-bottom form-group">
+              <label class="col-6" for="example-text">City
+              </label>
+              <div class="col-6 capatalize-text">
+                <input type="text" alphaspace formControlName="city" name="example-text" class="form-control">
+
+              </div>
+            </div>
+
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-6">State</label>
+            <div class="col-6 capatalize-text">
+              <input type="text" alphaspace formControlName="state" name="example-text" class="form-control">
+
+            </div>
+          </div>
+
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-6" for="example-text">Director Name
+            </label>
+            <div class="col-6">
+              <input type="text" formControlName="directorName" name="example-text" class="form-control">
+
+            </div>
+          </div>
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-6" for="example-text">Director Phone
+            </label>
+            <div class="col-6">
+              <input type="text" num formControlName="directorPhone" name="example-text" class="form-control">
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-6">Status</label>
+            <div class="col-6">
+              <p> {{result?.status |requestCategory}} </p>
+            </div>
+          </div>
+
+          <!-- Staff Details -->
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-12 mb-md-3">Staff Details</label>
+            <div class="col-12">
+              <p [innerHTML]="f.staffDetails.value"></p>
+            </div>
+          </div>
+
+          <!-- Cover Letter -->
+          <div class="form-row align-items-center border-bottom form-group">
+            <label class="col-12 mb-md-3">Cover Letter</label>
+            <div class="col-12">
+              <p [innerHTML]="f.coverLetter.value"></p>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div>
+          <div class="text-right">
+            <button *ngIf="result?.status ===1" (click)='reject(result?._id)' type="button"
+            class="btn btn-danger waves-effect waves-light">Reject</button>
+            <button *ngIf="result?.status === 2" type="submit"
+            class="btn btn-success waves-effect waves-light m-l-10">Approved</button>
+
+          <button *ngIf="result?.status !== 2" type="submit" (click)='naviagteToaddHos(result?._id)'
+            class="btn btn-success waves-effect waves-light m-l-10">Approve</button>
+
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+      <loader *ngIf="isLoader"></loader>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

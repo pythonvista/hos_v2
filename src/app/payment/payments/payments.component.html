@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card" style="height: 100vh;">
+            <div class="card-body">
+                <h5 class="card-title m-b-0">Payments Details</h5>
+                <span *ngxPermissionsOnly='["hospital"]'> Total Payments: {{totalPaymentsValue| currency:"&#8358;"}}
+                </span>
+                <hr>
+
+                <date-range-picker *ngxPermissionsOnly='["hospital"]' class="ml-auto custom-picker"
+                    (rangeSelected)="onDateSelection($event)"  [options]="secondFieldOptions"  [instanceId]="'secondDateRange'"
+                    [controlName]="'secondDateRange'" #dateRangePicker>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="date-range-icon">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input  id="secondDateRange"
+                                class="form-control custom-picker" type="text" name="dateRange"
+                                [value]="dateRangePicker.range" placeholder="select Date range" />
+                            <div *ngIf="dateRangePicker.range" class="input-group-append">
+                                <a href="javascript:void(0)" (click)="onDateReset();dateRangePicker.reset($event)"
+                                    class="input-group-text" id="date-range-icon">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </date-range-picker>
+
+                <div class="table-responsive">
+                    <div id="myTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <!-- <div class="row">
+                            <input (closed)="onDateSelection($event)" id="secondDateRange"
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="myTable_length"><label>Show <select
+                                            name="myTable_length" aria-controls="myTable"
+                                            class="form-control form-control-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> entries</label></div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="myTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                                            class="form-control form-control-sm" placeholder=""
+                                            aria-controls="myTable"></label></div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="myTable" class="table table-striped dataTable no-footer" role="grid"
+                                    aria-describedby="myTable_info" *ngIf="!isLoader">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="No: activate to sort column descending"
+                                                style="width: 61px;">No</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Patient: activate to sort column ascending"
+                                                style="width: 202px;">Patient</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Doctor: activate to sort column ascending"
+                                                style="width: 166px;">Doctor</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Date: activate to sort column ascending"
+                                                style="width: 119px;">Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Charges: activate to sort column ascending"
+                                                style="width: 130px;">Charges</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Discount: activate to sort column ascending"
+                                                style="width: 134px;">Discount</th>
+                                            <th class="sorting" tabindex="0" aria-controls="myTable" rowspan="1"
+                                                colspan="1" aria-label="Total: activate to sort column ascending"
+                                                style="width: 89px;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let items of billsList; let i = index" (click)="onClick(items._id)"
+                                            role="row" class="odd">
+                                            <td class="sorting_1">{{i + ((page - 1) * limit)+1}}</td>
+                                            <td>{{items?.patient.name}}</td>
+                                            <td>{{items?.doctor.name}}</td>
+                                            <td>{{items?.createdAt | date:'d/MMM/y'}}</td>
+                                            <td>{{getSubTotal(i)| currency :"&#8358;"}} </td>
+                                            <td>{{items?.discount}}% </td>
+                                            <td>{{applyDiscount(i) | currency :"&#8358;"}} </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <loader *ngIf="isLoader"></loader>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="myTable_info" role="status" aria-live="polite">
+                                    <span class="pt-3">showing {{((page-1) * limit) + billsList?.length }} of
+                                        {{totalCount}}
+                                        entries</span>
+                                </div>
+                            </div>
+
+                            <app-pagination (onPageChange)="onClickPage($event)" [page]='this.page' [limit]='this.limit'
+                                [totalDocs]='this.totalCount'> </app-pagination>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

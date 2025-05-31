@@ -1,0 +1,27 @@
+.edit-img{
+  height: 250px;
+  width: 250px;
+  margin: 5px auto;
+}
+.edit-img img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border: 1px solid lightgray;
+}
+@media (max-width: 767px){
+  .edit-img{
+    height: 150px;
+    width: 150px;
+    margin: 5px auto;
+  }
+  .edit-img img{
+    border-radius: 50%;
+  }
+  .float-right{
+    float: none !important;
+  }
+  .card{
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,18 @@
+.fa {
+    padding-right: 5px !important;
+}
+.breadcrumb-item {
+    padding-right: 10px !important;
+}
+.back-arrow{
+  padding: 5px;
+  border-radius: 100%;
+  color: white;
+  background: black;
+  margin-right: 10px;
+}
+@media (max-width: 1023px){
+.d-flex {
+    display: flex !important;
+}
+}

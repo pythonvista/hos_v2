@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><b>Prescription</b> <span class="pull-right"># {{result?._id}} </span></h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <address>
+                                <h3> &nbsp;<b class="text-danger"> {{result?.hospital.name}} </b></h3>
+                                <p class="text-muted m-l-5"> {{result?.hospital.address}},
+                                    <!-- <br/> Nr' Viswakarma Temple, -->
+                                    <br /> {{result?.hospital.city}},
+                                    <br /> {{result?.hospital.state}},
+                                    <br /> Phone: {{result?.hospital?.phone}} </p>
+
+
+                            </address>
+                        </div>
+                        <div class="pull-right text-right">
+                            <address>
+                                <h3>To,</h3>
+                                <h4 class="font-bold">{{result?.patient?.name}}</h4>
+                                <!-- <p class="text-muted m-l-30">E 104, Dharti-2,
+                                    <br/> Nr' Viswakarma Temple,
+                                    <br/> Talaja Road,
+                                    <br/> Bhavnagar - 364002</p> -->
+                                <h3>Doctor,</h3>
+                                <h4 class="font-bold">{{result?.createdBy?.name}}</h4>
+                                <p class="m-t-30"><b> Date :</b> <i class="fa fa-calendar"></i>
+                                    {{result?.createdAt|date}}</p>
+                                <!-- <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2020</p> -->
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="form19">Prescription</label>
+
+                            <div *ngIf="result?.prescription.length !== 0" class="row my-4">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Name</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-center">Days</th>
+                                                    <th class="">Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of result?.prescription;let i = index">
+                                                    <td class="text-center"> {{i+1}} </td>
+                                                    <td class="custom-width"> {{item?.name}} </td>
+                                                    <td class="text-center">{{item?.quantity}} </td>
+                                                    <td class="text-center"> {{item?.days}} </td>
+                                                    <td class="">
+                                                        <div class="">
+                                                            <div *ngIf="item?.time.morning"
+                                                                class="custom-control custom-checkbox disabled mr-2">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    [checked]='item?.time.morning' disabled
+                                                                    id="customCheck5">
+                                                                <label class="custom-control-label"
+                                                                    for="customCheck5">Morning</label>
+                                                            </div>
+                                                            <div *ngIf="item?.time.afternoon"
+                                                                class="custom-control custom-checkbox disabled mr-2">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    [checked]='item?.time.afternoon' disabled
+                                                                    id="customCheck6">
+                                                                <label class="custom-control-label"
+                                                                    for="customCheck6">Afternoon</label>
+                                                            </div>
+                                                            <div *ngIf="item?.time.evening"
+                                                                class="custom-control custom-checkbox disabled mr-2">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    [checked]='item?.time.evening' disabled
+                                                                    id="customCheck7">
+                                                                <label class="custom-control-label"
+                                                                    for="customCheck7">Evening</label>
+                                                            </div>
+                                                            <div *ngIf="item?.time.night"
+                                                                class="custom-control custom-checkbox disabled mr-2">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    [checked]='item?.time.night' disabled
+                                                                    id="customCheck8">
+                                                                <label class="custom-control-label"
+                                                                    for="customCheck8">Night</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+
+        <div class="text-right">
+            <!-- <button class="btn btn-danger" type="submit"> Proceed to payment </button> -->
+            <button (click)='updatePrescriptionStatus()' *ngIf="!result?.isPrescriptionGiven" class="btn btn-primary"
+                type="submit">
+                <span> Marka as Completed </span>
+            </button>
+
+            <button *ngIf="result?.isPrescriptionGiven" class="btn btn-success" type="button">
+                <span> Completed </span>
+            </button>
+        </div>
+    </div>
+
+</div>
+<!-- .row -->

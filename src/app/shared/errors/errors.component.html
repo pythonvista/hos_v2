@@ -1,0 +1,86 @@
+<div *ngIf="isSubmitted && form_control.errors">
+  <span class="text-danger" *ngIf="form_control.errors.required">Field is required</span>
+  <span class="text-danger" *ngIf="form_control.errors.email">Email must be a valid email address </span>
+  <span class="text-danger" *ngIf="form_control.errors.confirmPasswordValidator">
+    Password and Confirm Password didn't match
+  </span>
+
+
+  <!-- <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.required">Field is required</span>
+    
+  <span
+  class="validation-invalid-label"
+  *ngIf="form_control.errors.minlength">
+  Field must have atleast {{form_control.errors.minlength.requiredLength}} characters
+  </span>
+  <span
+  class="validation-invalid-label"
+  *ngIf="form_control.errors.maxlength">
+  Field must have upto {{form_control.errors.maxlength.requiredLength}} characters
+  </span>
+  <span class="validation-invalid-label" *ngIf="form_control.errors.pattern">
+  Name must on Alphabets 
+  </span>
+  
+  
+    
+<!-- password validation -->
+  <!-- <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.confirmPasswordValidator">
+      Password and Confirm Password didn't match.
+  </span>
+   <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.hasCapitalCase">
+     Password must include at least 1 upper case letter.
+  </span>
+    <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.hasSmallCase">
+     Password must include at least 1 lower case letter.
+  </span>
+   <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.hasNumber">
+           Password must include at least 1 digit.
+  </span>
+    <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.invalidPassword">
+      Password must consist of min. 6 characters.
+  </span>  -->
+  <!-- end password validation -->
+
+  <!-- email validations -->
+  <!-- <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.email">Email must be a valid email address
+   </span>
+  <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.emailAlreadyRegistered">
+      An account with email is already existing! If you forgot your
+password, please use the password recovery link.
+  </span>
+  <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.wrongEmailFormat">
+      Email format is not valid.
+  </span>
+    <span
+    class="validation-invalid-label"
+    *ngIf="form_control.errors.blacklistTemporaryEmailAddresses">
+      Email address is not valid.
+  </span> -->
+  <!-- end email validations -->
+  <!-- //UsrenameValidator -->
+  <!-- <span
+  class="validation-invalid-label"
+  *ngIf="form_control.errors.invalidusername">
+   Username must have 4 Characters
+</span> -->
+
+</div>

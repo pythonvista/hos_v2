@@ -1,0 +1,169 @@
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<!-- <div class="scroll"> -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="user-pro">
+                    <a (click)="showMenuFunv(1)" [ngClass]="{'active': showMenu == 1 }"
+                        class="has-arrow waves-effect waves-dark d-flex align-items-center" href="javascript:void(0)"
+                        aria-expanded="false">
+                        <div class="profile-img"><img [src]="imageSrc" alt="user-img" class="img-circle"></div>
+                        <span class="hide-menu">{{user.name}}</span>
+                    </a>
+                    <ul aria-expanded="false" [ngClass]="{'collapse': showMenu != 1 }">
+                        <!-- <li><a [routerLink]="['/app/profile']" href="javascript:void(0)"><i class="ti-user"></i> My Profile</a></li> -->
+                        <!-- <li><a [routerLink]="['/app/profile']" href="javascript:void(0)"><i class="ti-user"></i>Earnings</a></li> -->
+
+                        <!-- <li><a [routerLink]="['/app/pinbox']" href="javascript:void(0)"><i class="ti-wallet"></i> Inbox</a></li> -->
+                        <li><a [routerLink]="['/login']" href="javascript:void(0)" (click)="logout()"><i
+                                    class="fa fa-power-off"></i><span class="hide-menu">Logout</span></a></li>
+                    </ul>
+                </li>
+                <!-- <hr> -->
+                <li>
+                    <a href="javascript:void(0)" routerLinkActive="active" (click)="goToProfile()"
+                        class="waves-effect waves-dark "><i class="fa fa-user"></i><span
+                            class="hide-menu">Profile</span></a>
+                </li>
+
+                <li> <a href="javascript:void(0)" (click)="goToDashboard()" routerLinkActive="active"
+                        class="waves-effect waves-dark "><i class="fas fa-tachometer-alt"></i><span
+                            class="hide-menu">Dashboard</span></a>
+                </li>
+                <li *ngxPermissionsOnly="['patient']">
+                    <a href="javascript:void(0)"
+                        [routerLink]="['/app/patient/profile',authService.currentUserValue.roleId,'medical']"
+                        class="dropdown-item"><i class="fa fa-sticky-note-o"></i><span class="hide-menu">Medical
+                            History</span></a>
+                </li>
+                <li *ngxPermissionsOnly="['hospital']">
+                    <a [routerLink]="['/app/contacts']" (click)="showMenuFunv(3)" routerLinkActive="active"> <i
+                            class="fas fa-th-large"></i><span class="hide-menu">Contact / Employee</span></a>
+                </li>
+
+                <li *ngxPermissionsOnly="['admin','hospital', 'doctor','labAttendant', 'FDO' , 'pharmacy']"> <a
+                        href="javascript:void(0)" [routerLink]="['/app/inbox']" (click)="showMenuFunv(4)"
+                        routerLinkActive="active" class="waves-effect waves-dark "><i class="fas fa-envelope"></i><span
+                            class="hide-menu">Inbox</span></a>
+                </li>
+                <!-- <li> <a class="has-arrow waves-effect waves-dark" #hospital="routerLinkActive" routerLinkActive="active" [routerLink]="['/app/hospital']"  href="javascript:void(0)" aria-expanded="false"><i class="fa fa-hospital-o" ></i><span class="hide-menu">Hospitals</span></a>
+                                        <ul aria-expanded="false" [ngClass]="{'collapse': !hospital.isActive}">
+                                            <li><a [routerLink]="['/app/hospital']" >All Hospitals</a></li>
+                                            <li><a [routerLink]="['/app/hospital/add']" >Add Hospitals</a></li>
+                                        </ul>
+                                    </li> -->
+                <li *ngxPermissionsOnly="['hospital', 'patient', 'doctor','FDO']"> <a class=" waves-effect waves-dark"
+                        (click)="showMenuFunv(5)" routerLinkActive="active" [routerLink]="['/app/calender']"
+                        #calender="routerLinkActive" href="javascript:void(0)" aria-expanded="false"><i
+                            class="fa fa-calendar"></i><span class="hide-menu">Appointment</span></a>
+                    <!-- <ul aria-expanded="false" [ngClass]="{'collapse': !calender.isActive}">
+                                            <li><a  [routerLink]="['/app/calender']" >Doctor Schedule</a></li>
+                                            <li><a  [routerLink]="['/app/calender/book']">Book Appointment</a></li>
+                                        </ul> -->
+                </li>
+                <li *ngxPermissionsOnly="['hospital','pharmacy','labAttendant']"> <a class="waves-effect waves-dark"
+                        [routerLink]="['/app/doctor']" (click)="showMenuFunv(6)" routerLinkActive="active"
+                        #docter="routerLinkActive" href="javascript:void(0)" aria-expanded="false"><i
+                            class="fa fa-user-md"></i><span class="hide-menu">Doctors</span></a>
+                    <!-- <ul aria-expanded="false"  [ngClass]="{collapse: !docter.isActive}">
+                                            <li><a [routerLink]="['/app/doctor']" >All Doctors</a></li>
+                                            <li><a [routerLink]="['/app/doctor/add']">Add Doctor</a></li>
+
+                                        </ul> -->
+                </li>
+                <li *ngxPermissionsOnly="['hospital','doctor']"> <a class="waves-effect waves-dark"
+                        [routerLink]="['/app/labattendant']" routerLinkActive="active" href="javascript:void(0)"
+                        aria-expanded="false"><i class="fa fa-user-md"></i><span class="hide-menu">
+                            LAB SCIENTIST</span></a>
+                </li>
+
+                <li *ngxPermissionsOnly="['hospital' ,'doctor','FDO']"> <a class="waves-effect waves-dark"
+                        #patient="routerLinkActive" (click)="showMenuFunv(7)" [routerLink]="['/app/patient']"
+                        routerLinkActive="active" href="javascript:void(0)" aria-expanded="false"><i
+                            class="fa fa-users"></i><span class="hide-menu">Patients</span></a>
+
+                <li *ngxPermissionsOnly="['hospital']"> <a class="waves-effect waves-dark" #patient="routerLinkActive"
+                        (click)="showMenuFunv(7)" [routerLink]="['/app/fdo']" routerLinkActive="active"
+                        href="javascript:void(0)" aria-expanded="false"><i class="fa fa-users"></i><span
+                            class="hide-menu">Front Desk Officer</span></a>
+
+                <li *ngxPermissionsOnly="['hospital','doctor']"> <a class="waves-effect waves-dark"
+                        #patient="routerLinkActive" (click)="showMenuFunv(7)" [routerLink]="['/app/pharmacy']"
+                        routerLinkActive="active" href="javascript:void(0)" aria-expanded="false"><i
+                            class="fa fa-medkit" aria-hidden="true"></i><span class="hide-menu">Pharmacy</span></a>
+
+                <li *ngxPermissionsOnly="['admin' ]"> <a class="waves-effect waves-dark"
+                        [routerLink]="['/app/hospitals']" routerLinkActive="active" #hospitals="routerLinkActive"
+                        href="javascript:void(0)" aria-expanded="false"><i class="fa fa-hospital-o"></i><span
+                            class="hide-menu">Hospitals</span></a>
+                    <!-- <ul aria-expanded="false"  [ngClass]="{collapse: !docter.isActive}">
+                                            <li><a [routerLink]="['/app/doctor']" >All Doctors</a></li>
+                                            <li><a [routerLink]="['/app/doctor/add']">Add Doctor</a></li>
+
+                                        </ul> -->
+                </li>
+
+
+
+                <!-- <li> <a class="has-arrow waves-effect waves-dark" #user="routerLinkActive"  [routerLink]="['/app/user']" routerLinkActive="active" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-user-secret"></i><span class="hide-menu">Users</span></a>
+                                        <ul aria-expanded="false"  [ngClass]="{'collapse': !user.isActive}">
+                                            <li><a  [routerLink]="['/app/user']" >All Users</a></li>
+                                            <li><a   [routerLink]="['/app/user/add']" >Add Users</a></li>
+
+                                        </ul>
+                                    </li> -->
+
+                <li *ngxPermissionsOnly="['hospital', 'pharmacy','patient','FDO','doctor']"> <a
+                        class=" waves-effect waves-dark" #payment="routerLinkActive" (click)="showMenuFunv(8)"
+                        [routerLink]="['/app/payment']" routerLinkActive="active" href="javascript:void(0)"
+                        aria-expanded="false">
+                        <i class="fa fa-money"></i><span class="hide-menu">Payments</span></a>
+                    <!-- <ul aria-expanded="false" [ngClass]="{'collapse': !payment.isActive}">
+                                            <li><a [routerLink]="['/app/payment']" >Payments</a></li>
+                                            <li><a [routerLink]="['/app/payment/add']" >Add Payment</a></li>
+                                        </ul> -->
+                </li>
+
+                <li *ngxPermissionsOnly="['pharmacy']"> <a class=" waves-effect waves-dark" #payment="routerLinkActive"
+                        (click)="showMenuFunv(8)" [routerLink]="['/app/prescription']" routerLinkActive="active"
+                        href="javascript:void(0)" aria-expanded="false">
+                        <i class="fa fa-medkit" aria-hidden="true"></i><span class="hide-menu">Prescriptions</span></a>
+                    <!-- <ul aria-expanded="false" [ngClass]="{'collapse': !payment.isActive}">
+                                        <li><a [routerLink]="['/app/payment']" >Payments</a></li>
+                                        <li><a [routerLink]="['/app/payment/add']" >Add Payment</a></li>
+                                    </ul> -->
+                </li>
+                <!-- <li *ngxPermissionsOnly="['hospital']"> <a class=" has-arrow waves-effect waves-dark"
+                        (click)="showMenuFunv(9)" [ngClass]="{'active': showMenu == 9 }" href="javascript:void(0)"
+                        aria-expanded="false"><i class="fa fa-list"></i><span class="hide-menu">Reports</span></a>
+                    <ul aria-expanded="false" [ngClass]="{'collapse': showMenu != 9}">
+
+                        <li><a href="javascript:void(0)" [routerLink]="['/app/reports/stats']"><span
+                                    class="hide-menu">Diseases</span></a></li>
+
+                    </ul>
+                </li> -->
+                <li *ngxPermissionsOnly="['admin' ]"> <a class="waves-effect waves-dark " href="javascript:void(0)"
+                        [routerLink]="['/app/request']" routerLinkActive="active"><i class="fa fa-question"></i><span
+                            class="hide-menu">Requests</span></a>
+                </li>
+                <li *ngxPermissionsOnly="['labAttendant']"> <a class="waves-effect waves-dark "
+                        href="javascript:void(0)" [routerLink]="['/app/ticket']" routerLinkActive="active"><i
+                            class="fa fa-list"></i><span class="hide-menu">
+                            Ticket
+                        </span></a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- </div> -->
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->

@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card o-hidden">
+            <div class="card-body">
+                <div class="col-md-4 p-3">
+                    <div class="right-inner-addon">
+                        <ng-select [items]="doctorsList" placeholder="Search Doctor" bindLabel="name" autofocus
+                            bindValue="_id" [typeahead]="doctorInput$" (change)="onSearchChange($event)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <span *ngIf="item.user">{{item.user.username}}-{{item.user.name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                                {{item.user.username}}-{{item.user.name}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="">
+
+                    <div class="table-responsive">
+                        <table class="table text-left" *ngIf="!isLoader">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Personal Info</th>
+                                    <th scope="col">Cadre</th>
+                                    <th scope="col">Department</th>
+                                    <th scope="col">File No.</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div *ngIf="doctors == null ||doctors?.length==0">
+                                    <h5>No Record Found</h5>
+                                </div>
+                                <tr *ngFor="let item of doctors; let i = index " class="dataTables_wrapper">
+                                    <td class="table-srno">{{i + ((page - 1) * limit)+1}}</td>
+                                    <td>
+                                        <p class="m-0"><a href="javascript:void(0)" (click)="onClick(item._id)">
+                                                {{item.user.name}}</a></p>
+                                        <p class="m-0">{{item.user.email}}</p>
+                                        <p class="m-0">{{item.user.phone}}</p>
+                                    </td>
+                                    <td class="Cadre">
+                                        {{item.cadre}}
+                                    </td>
+                                    <td class="department">
+                                        <p class="m-0">{{item?.department}}</p>
+                                        <p class="m-0">{{item?.specialty}}</p>
+                                    </td>
+                                    <td class="file-no">
+                                        {{item.user.username}} </td>
+
+                                    <td class="Gender">
+                                        {{item.gender}} </td>
+                                    <td>
+                                        <a href="javascript:void(0)">
+                                            <i (click)="onClick(item._id)" class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <!-- <td><button type="button" class="btn btn-success" (click)="onClickEdit(item._id)">
+                                            Edit</button> &nbsp;
+                                        <button type="button" class="btn btn-danger" (click)="delet(i)"> Delete</button>
+                                    </td> -->
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <loader *ngIf="isLoader"></loader>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <span class="pt-3">showing {{((page-1) * limit) + doctors?.length }} of {{totalCount}}
+                                entries</span>
+                            <app-pagination (onPageChange)="onClickPage($event)" [page]='this.page' [limit]='this.limit'
+                                [totalDocs]='this.totalCount'> </app-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

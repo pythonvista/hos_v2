@@ -1,0 +1,131 @@
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+        <h4 class="modal-title text-primary">Appointment Detail</h4>
+        <button type="button" class="close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12">
+            <div class="pull-left">
+                <address>
+                    <h3> &nbsp;<b class="text-danger"> {{appointment?.hospital?.name}} </b></h3>
+                    <p class="text-muted m-l-5"> {{appointment?.hospital?.address}},
+                        <br /> {{appointment?.hospital?.city}}, {{appointment?.hospital?.state}}
+                        <br /> Phone: {{appointment?.hospital?.phone}}
+                    </p>
+                </address>
+            </div>
+        </div>
+        <div class="form-material form-horizontal">
+
+            <div>
+                <label class="col-md-12 mt-3 text-large mb-2 mt-2" for="example-text">Patient
+                </label>
+                <div class="col-md-12">
+                    {{this.appointment.patient.user.username}} -- {{this.appointment.patient.user.name}}
+                </div>
+            </div>
+
+            <div>
+                <label class="col-md-12 mt-3 text-large mt-2 mb-2" for="example-text">Doctor
+                </label>
+                <div class="col-md-12" ngbDropdown>
+                    {{this.appointment.doctor.user.username}} -- {{this.appointment.doctor.user.name}}
+
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-12 mt-3 text-large ml-2 mt-2 mb-2" for="bdate">Start Date (date and time here)
+                </label>
+                <div [formGroup]="form" class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group-append">
+                            <input class="form-control pl-2" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                                formControlName="startDate" #d="ngbDatepicker" (blur)="d.close()">
+                            <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 input-group-append" ngbDropdown>
+                    <input class="form-control" placeholder="HH-mm" [value]="timeValue" ngbDropdownToggle>
+                    <button ngbDropdownToggle class="btn btn-outline-secondary fa fa-clock" type="button"></button>
+                    <div ngbDropdownMenu>
+                        <ngb-timepicker [(ngModel)]="time" [meridian]="true"></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-12 mt-3 text-large mb-2 mt-2" for="bdate">Duration (min)
+                </label>
+                <div class="col-md-12">
+                    <ng5-slider [(value)]="sliderValue" (change)="onSliderValueChange()" [options]="options">
+                    </ng5-slider>
+                </div>
+            </div>
+
+            <div [formGroup]="form" class="form-group"
+                *ngIf="appointment.status === 'scheduled' || appointment.status === 'confirm'|| appointment.status === 'noshow'">
+                <label class="col-md-12 mt-3 text-large mb-2 mt-2">Status</label>
+                <div class="col-md-12">
+                    <div class="toggle">
+                        <input type="radio" [formControl]="statusControl" value="scheduled" id="scheduled"
+                            checked="checked" />
+                        <label for="scheduled">Scheduled</label>
+                        <input type="radio" [formControl]="statusControl" value="confirm" id="confirm" />
+                        <label for="confirm">Confirmed</label>
+                    </div>
+
+                </div>
+            </div>
+            <div [formGroup]="form" class="form-group"
+                *ngIf="appointment.status === 'intake' || appointment.status === 'checkout'">
+                <label class="col-md-12 mt-3 text-large mb-2">Status</label>
+                <div class="col-md-12">
+                    <div *ngIf="appointment.status === 'intake'" class="toggle">
+                        <input type="radio" value="intake" id="intake" checked="checked" />
+                        <label for="intake">Intake</label>
+
+                    </div>
+                    <div *ngIf="appointment.status === 'checkout'" class="toggle">
+                        <input type="radio" value="checkout" id="checkout" checked="checked" />
+                        <label for="checkout">Check Out</label>
+
+                    </div>
+
+                </div>
+            </div>
+            <div [formGroup]="form" class="form-group">
+                <label class="col-md-12 mt-3 text-large mb-2">Reason</label>
+                <div class="col-md-12">
+                    <textarea class="form-control" [formControl]="reasonControl" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngxPermissionsOnly="['doctor', 'hospital']" class="modal-footer">
+        <div
+            *ngIf="appointment.status === 'scheduled' || appointment.status === 'confirm'|| appointment.status === 'noshow'">
+            <button type="button" (click)="ondeleteEvent()"
+                class="pull-left btn  btn-outline-secondary waves-effect waves-light m-r-10">Delete</button>
+            <button type="button" (click)="ondeleteEvent()"
+                class="pull-left btn btn-danger waves-effect waves-light m-r-10">No Show</button>
+
+            <!-- pull above two to left -->
+
+            <button type="submit" (click)="oneditEvent()"
+                class="btn btn-info waves-effect waves-light m-r-10">Update</button>
+
+            <button type="button" class="btn btn-success waves-effect waves-light"
+                (click)="OpenCheckin()">Intake</button>
+        </div>
+
+        <div *ngIf="appointment.status == 'intake'">
+            <button type="button" class="btn btn-success waves-effect waves-light" (click)="OpenCheckOut()">Check
+                Out</button>
+        </div>
+
+    </div>
+</ng-template>

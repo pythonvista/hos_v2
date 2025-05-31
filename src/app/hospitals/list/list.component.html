@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+
+        <div class="float-right">
+            <label (click)="clickActive()" class="btn btn-info">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                    <input type="checkbox" class="custom-control-input" [(ngModel)]="active">
+                    <label class="custom-control-label" for="checkbox1"> {{active?  "Active": "Active"}} </label>
+                </div>
+            </label>
+
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!isLoader">
+
+    <div *ngFor="let item of hospitals; let i = index" class="col-md-4 col-sm-4">
+
+
+        <div class="card">
+
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <div class="user-img">
+                            <a><img [src]="imageUrl(item.image)" alt="user" class="rounded-circle"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <h5 class="card-title m-b-0">{{item.name}}</h5> <small>{{item?.city +", " +item?.state}}
+                        </small>
+                        <p>
+                        <address>
+                          <i class="fas fa-map-marker text-muted"></i> {{item.address}}, {{item.state}}
+                            <br />
+                            <br />
+                            <span class="fas fa-phone text-muted">&nbsp;</span>{{item.phone}}
+                        </address>
+
+
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                        <button routerLink="/app/hospitals/{{item._id}}" type="button"
+                            class="btn btn-outline-success btn-block " style="text-align: center;">View Details
+                            <i class="fas fa-arrow-right "></i> </button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<loader *ngIf="isLoader"></loader>
+
+
+
+
+<!-- <div id="container" *ngIf="!isLoader">
+
+  <div id="card" *ngFor="let item of hospitals; let i = index" class="card">
+      <div class="card-body ">
+        <div id="container">
+          <div id="card">
+          <div class="user-img">
+            <a><img [src]="imageUrl(item.image)" alt="user" class="rounded-circle"></a>
+        </div>
+        <div class="">
+          <h5 class="card-title m-b-0">{{item.name}}</h5> <small>{{item?.city +", " +item?.state}}
+          </small>
+          <p>
+          <address>
+           <i class="fas fa-map-marker text-muted"></i> {{item.address}}, {{item.state}}
+            <br />
+            <br />
+            <span class="fas fa-phone text-muted">&nbsp;</span>{{item.phone}}
+          </address>
+        </div>
+      </div>
+        </div>
+          <div>
+            <hr>
+            <button routerLink="/app/hospitals/{{item._id}}" type="button" class="btn btn-outline-success btn-block "
+              style="text-align: center;">View Details
+              <i class="fas fa-arrow-right "></i> </button>
+          </div>
+    </div>
+  </div>
+</div> -->

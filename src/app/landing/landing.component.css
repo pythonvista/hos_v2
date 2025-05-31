@@ -1,0 +1,210 @@
+
+#content {
+    width: 100%; 
+}
+.header-logo .m-span{
+    color: white;
+    font-size: 3rem;
+    font-weight: lighter;
+}
+.header-logo .ed-span{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
+.header-logo .fest-span{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.table { 
+    display: table; 
+    width: 100%; 
+    margin-top: 10%; 
+}
+.table .table-cell { 
+    display: table-cell; 
+    vertical-align: top; 
+}
+.table .table-cell.space3 { 
+    width: 33%; 
+}
+
+.button-cell { 
+    margin: 0 auto 0 auto; 
+    width: 200px; 
+}
+.button-cell .button-header { 
+    width: 200px; 
+    height: 200px; 
+    display: table-cell; 
+    position: relative;
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    -khtml-border-radius: 50%; 
+    border-radius: 50%; }
+.button-cell .button-header .button-header-parent { 
+    width: 125px; 
+    height: 125px; 
+    margin: 37px; 
+    vertical-align: middle;
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    -khtml-border-radius: 50%; 
+    border-radius: 50%; 
+    transition: all 0.3s ease; 
+}
+.button-cell:hover .button-header .button-header-parent { 
+    width: 170px; 
+    height: 170px; 
+    margin: 15px;  
+}
+.button-cell .button-header .button-header-parent .button-header-child { 
+    width: 100px; 
+    height: 100px; 
+    position: absolute; 
+    left: 50px; top: 50px; 
+}
+.button-cell .button-header .button-header-parent .button-header-child img { 
+    width: 100px; 
+    height: 100px; 
+    transition: all 0.3s ease; 
+}
+.button-cell .button-text { 
+    text-align: center; 
+    font-size: 25px; 
+    padding-top: 20px; 
+    margin-top: 20px; 
+    padding: 10px 10px; 
+    transition: all 0.3s ease; 
+    color: #646464; 
+}
+.button-cell:hover .button-text { 
+    background: #ccc; 
+    color: #000; 
+}
+.color1 .button-header { 
+    background: #476367; 
+    border: 3px solid #314547;
+    cursor: pointer; 
+}
+.color1 .button-header .button-header-parent { 
+    background: #314547; 
+}
+.color2 .button-header { 
+    background: #BA4437; 
+    border: 3px solid #873228;
+    cursor: pointer;  
+}
+.color2 .button-header .button-header-parent { 
+    background: #873228; 
+}
+.color3 .button-header { 
+    background: #DFC142; 
+    border: 3px solid #BDA338; 
+    cursor: pointer; 
+}
+.color3 .button-header .button-header-parent { 
+    background: #BDA338; 
+}
+
+.floatRight { 
+    margin-right:0;
+}
+.floatLeft { 
+    margin-left:0; 
+}
+.header { 
+    overflow: hidden; 
+    width: 100%; 
+    height: 100px; 
+    background: #6f42c1; 
+}
+.header .header-logo { 
+    display: table-cell; 
+    vertical-align: middle; 
+    height: 100px; 
+    padding-left: 20px; 
+}
+
+a, a:visited, a:hover { 
+    text-decoration: none; 
+    cursor: default;
+}
+@media screen and (max-width: 800px) {
+    .table .table-cell { 
+        display: block; 
+    }
+    .floatRight {
+        margin-right:auto;
+    }
+    .floatLeft { 
+        margin-left:auto; 
+    }
+    .table .table-cell.space3 { 
+        width: 100%; 
+    }
+    .table { 
+        margin-top: 20px; 
+    }
+    .button-cell .button-text { 
+        margin-bottom: 20px;  
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .button-cell { 
+        margin: 0 auto 20px auto; 
+        width: 150px; 
+    }
+    .button-cell .button-header { 
+        width: 150px; 
+        height: 150px; 
+        display: table-cell; 
+        position: relative;
+        -moz-border-radius: 50%; 
+        -webkit-border-radius: 50%; 
+        -khtml-border-radius: 50%; 
+        border-radius: 50%; }
+    .button-cell .button-header .button-header-parent { 
+        width: 100px; 
+        height: 100px; 
+        margin: 25px; 
+        vertical-align: middle;
+        -moz-border-radius: 50%; 
+        -webkit-border-radius: 50%; 
+        -khtml-border-radius: 50%; 
+        border-radius: 50%; transition: all 0.3s ease; 
+    }
+    .button-cell:hover .button-header .button-header-parent { 
+        width: 130px; 
+        height: 130px; 
+        margin: 10px;  
+    }
+    .button-cell .button-header .button-header-parent .button-header-child { 
+        width: 50px; 
+        height: 50px; 
+        position: absolute; 
+        left: 50px; 
+        top: 50px; 
+    }
+    .button-cell .button-header .button-header-parent .button-header-child img { 
+        width: 50px; 
+        height: 50px; 
+        transition: all 0.3s ease; 
+    }
+    /*.button-cell .button-header:hover .button-header-parent .button-header-child { width: 200px; height: 200px; position: absolute; left: 0px; top: 0px; }
+    .button-cell .button-header:hover .button-header-parent .button-header-child img { width: 200px; height: 200px; }*/
+    /*.button-cell .button-header .button-header-parent .button-header-child .button-icon { width: 100px; height: 100px; vertical-align: middle; margin: auto; }*/
+    .button-cell .button-text { 
+        text-align: center; 
+        font-size: 15px; 
+        padding-top: 20px; 
+        margin-top: 20px; 
+        padding: 10px 10px; 
+        transition: all 0.3s ease;  
+    }
+    .button-cell:hover .button-text { 
+        background: #ccc; 
+    }
+}

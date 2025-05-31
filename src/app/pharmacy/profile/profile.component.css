@@ -1,0 +1,38 @@
+.user-bg{
+  height: 375px;
+  width: 100%;
+}
+.user-bg img{
+height: 100%;
+width: 100%;
+object-fit: contain;
+border-bottom: 1px solid lightgray;
+}
+@media (max-width: 767px){
+  .user-bg{
+    height: 150px;
+    width: 150px;
+    margin: 5px auto;
+  }
+  .user-bg img {
+    border-radius: 50%;
+  }
+  p{
+    margin-bottom: 5px;
+  }
+  .m-t-10{
+    margin-top: 5px;
+  }
+  .card{
+    border-radius: 10px;
+  }
+  .h-b{
+    border: 0 !important;
+  }
+  .mb-10{
+    margin-bottom: 10px;
+  }
+  .m-10{
+    margin: 10px;
+  }
+}

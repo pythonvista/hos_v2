@@ -1,0 +1,185 @@
+<div class="row">
+        <!-- Column -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8"><span class="display-6">8659 <i class="ti-angle-down font-14 text-danger"></i></span>
+                            <h6>Total Income</h6></div>
+                        <div class="col-4 align-self-center text-right  p-l-0">
+                                <div style="color: rgb(57, 231, 222); font-size: 50px;"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8"><span class="display-6">7469 <i class="ti-angle-up font-14 text-success"></i></span>
+                            <h6>Total Income</h6></div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                                <div style="color: rgb(16, 126, 230); font-size: 50px;"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8"><span class="display-6">6011 <i class="ti-angle-up font-14 text-success"></i></span>
+                            <h6>Unique Patients</h6></div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                                <div style="color: rgb(33, 236, 67); font-size: 50px;"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8"><span class="display-6">18% <i class="ti-angle-down font-14 text-danger"></i></span>
+                            <h6>Normal Rate</h6></div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                                <div style="color: aqua; font-size: 50px;"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><small class="pull-right m-t-10 text-success"><i class="fa fa-sort-asc"></i> 18% High then last month</small> Income Analysis</h5>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <h6>Overall Growth</h6> <b>80.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Montly</h6> <b>15.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Day</h6> <b>5.50%</b></div>
+                    </div>
+                    <div id="chart-container">
+                            <canvas #myCanvas id="canvas" 
+                            baseChart [chartType]="chartType"
+                            [datasets]="chartData"
+                             [labels]="chartLabels"
+                             [colors]="chartColors"
+                             [options]="chartOptions"></canvas>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><small class="pull-right m-t-10 text-danger"><i class="fa fa-sort-desc"></i> 18% High then last month</small>Income Analysis</h5>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <h6>Overall Growth</h6> <b>80.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Montly</h6> <b>15.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Day</h6> <b>5.50%</b></div>
+                    </div>
+                    <div id="chart-container">
+                            <canvas #myCanvas id="canvas" 
+                            baseChart [chartType]="chartType"
+                            [datasets]="chartData"
+                             [labels]="chartLabels"
+                             [colors]="chartColors"
+                             [options]="chartOptions"></canvas>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><small class="pull-right m-t-10 text-success"><i class="fa fa-sort-asc"></i> 18% High then last month</small>Income Analysis</h5>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <h6>Overall Growth</h6> <b>80.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Montly</h6> <b>15.40%</b></div>
+                        <div class="stat-item">
+                            <h6>Day</h6> <b>5.50%</b></div>
+                    </div>
+                    <div id="chart-container">
+                            <canvas #myCanvas id="canvas" 
+                            baseChart [chartType]="chartType"
+                            [datasets]="chartData"
+                             [labels]="chartLabels"
+                             [colors]="chartColors"
+                             [options]="chartOptions"></canvas>
+                        </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">total income</h5>
+                      
+                        
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="mbarChartLabels"
+                      [options]="barChartOptions"
+                      [colors]="barChartColors"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          
+          
+          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Hospital Earning</h5>
+                        
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="mbarChartLabels"
+                      [options]="barChartOptions"
+                      [colors]="barChartColors"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          
+          
+          </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,80 @@
+<div class="card-body">
+    <div class="d-flex align-items-center justify-content-between m-0">
+       
+
+        <div class="container-fluid mb-3 text-right">
+            <button class="btn btn-outline-info" (click)="onOpen()" data-toggle="modal" data-target="#modalContent"
+                type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Category</button>
+        </div>
+    </div>
+    <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel *ngFor="let res of medical" title="{{res.title}}">
+
+            <ng-template ngbPanelContent>
+                <div class="d-flex align-items-center justify-content-between m-0">
+                    <p class="container-fluid text-left">Active: {{res.list.length}}  </p>
+                    <div class="container-fluid mb-3 text-right">
+                        <button class="btn btn-outline-info" (click)="onOpen()" data-toggle="modal"
+                            data-target="#modalContent" type="button"><i class="fa fa-plus-circle"
+                                aria-hidden="true"></i> Add New</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-left">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Diagnosed</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Last Checked By</th>
+                                <th scope="col">Last Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of res.list" class="dataTables_wrapper">
+                                <td><a [routerLink]="['medical']" > {{item.title}}</a></td>
+
+                                <td>{{item.start}}</td>
+                                
+                                <td>{{item.status}}</td>
+                                <td> {{item.ref}} </td>
+                                <td> {{item.updated}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-template>
+        </ngb-panel>
+
+    </ngb-accordion>
+
+</div>
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Event action occurred</h5>
+        <button type="button" class="close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="card text-center">
+                    <div class="card-header">
+                      Featured
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">Special title treatment</h4>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                      2 days ago
+                    </div>
+                  </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="onClose()">
+            OK
+        </button>
+    </div>
+</ng-template>

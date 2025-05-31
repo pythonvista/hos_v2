@@ -1,0 +1,28 @@
+.card{
+    -webkit-box-shadow: 0 1px 9px rgba(0, 0, 0, 0.1);
+  }
+  .o-hidden{
+    overflow: hidden;
+  }
+  .set{
+    border-radius: 50%;
+  }
+  .fa-times{
+    color: red;
+  }
+  .fa-pencil-alt{
+    color: rgb(3, 172, 3);
+    font-size: 1.7rem;
+  }
+  .table{
+    border-top:none ;
+  }
+  .right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 26px;
+    pointer-events: none;
+  }
+  .dataTables_wrapper td{
+    vertical-align: middle;
+  }

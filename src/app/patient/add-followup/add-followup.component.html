@@ -1,0 +1,300 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div (keyup.enter)="onClickSave()" class="card-body">
+                <h4 class="card-title">Followup Form</h4>
+                <form [formGroup]="form" class="form-material form-horizontal">
+                    <div class="row">
+                        <!-- Date -->
+                        <!-- <div class="form-group">
+                        <label class="col-md-12" for="bdate">Date Time </label>
+                        <div class="col-md-12">
+                            <input type="datetime-local" formControlName="date" id="bdate" name="bdate" class="form-control mydatepicker">
+                            <small *ngIf="isFormSubmitted && f.date.errors && f.date.errors.required" class="text-danger">
+                                date is required
+                            </small>
+                        </div>
+                    </div> -->
+                    </div>
+
+                    <!-- Disease Category -->
+                    <div class="form-group mt-3">
+                        <label for="form19">Disease</label>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <select class="form-control" formControlName="diseaseSubCategory">
+                                <option *ngFor="let d of category?.subCategories;" [value]="d.disease">{{d.disease}}
+                                </option>
+                            </select>
+                            <!-- <select *ngIf="isFollowUp" class="form-control" formControlName="diseaseSubCategory">
+                                <option [value]="followUp.diseaseSubCategory">{{followUp.diseaseSubCategory}}</option>
+                            </select> -->
+                            <small
+                                *ngIf="isFormSubmitted && f.diseaseSubCategory.errors && f.diseaseSubCategory.errors.required"
+                                class="text-danger">
+                                Select a Disease
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Prsenting Complaint -->
+                    <div class="form-group">
+                        <label for="form19">Presenting Complaint</label>
+                        <div class="md-form amber-textarea active-amber-textarea"><br>
+                            <textarea formControlName="presentingComplaint" id="form19" class="md-textarea form-control"
+                                rows="2"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.presentingComplaint.errors && f.presentingComplaint.errors.required"
+                                class="text-danger">
+                                Presenting Complaint is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- History of Presenting Complaint -->
+                    <div class="form-group">
+                        <label for="form19">History of Presenting Complaint</label>
+                        <div class="md-form amber-textarea active-amber-textarea"> <br>
+                            <textarea formControlName="historyOfPresentingComplaint" id="form19"
+                                class="md-textarea form-control" rows="4"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.historyOfPresentingComplaint.errors && f.historyOfPresentingComplaint.errors.required"
+                                class="text-danger">
+                                History of Presenting Complaint is required
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <!-- Physical Examination -->
+                    <div class="form-group">
+                        <label for="form19">Physical Examination</label>
+                        <div class="md-form amber-textarea active-amber-textarea"><br>
+                            <textarea formControlName="physicalExamination" id="form19" class="md-textarea form-control"
+                                rows="4"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.physicalExamination.errors && f.physicalExamination.errors.required"
+                                class="text-danger">
+                                History of Presenting Complaint is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Provisional Diagnosis -->
+                    <div class="form-group">
+                        <label for="form19">Provisional Diagnosis</label>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <br>
+                            <textarea formControlName="provisionalDiagnosis" id="form19"
+                                class="md-textarea form-control" rows="4"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.provisionalDiagnosis.errors && f.provisionalDiagnosis.errors.required"
+                                class="text-danger">
+                                History of Presenting Complaint is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Investigation -->
+                    <div class="form-group">
+                        <label for="form19">Investigations</label>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <br>
+                            <textarea formControlName="investigations" id="form19" class="md-textarea form-control"
+                                rows="4"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.investigations.errors && f.investigations.errors.required"
+                                class="text-danger">
+                                Investigation is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!--  Final Dagnosis -->
+                    <div class="form-group">
+                        <label for="form19">Final Diagnosis</label>
+                        <div class="md-form amber-textarea active-amber-textarea">
+                            <br>
+                            <textarea formControlName="finalDiagnosis" id="form19" class="md-textarea form-control"
+                                rows="4"></textarea>
+                            <small
+                                *ngIf="isFormSubmitted && f.finalDiagnosis.errors && f.finalDiagnosis.errors.required"
+                                class="text-danger">
+                                Final Diagnosis is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Treatment -->
+                    <div class="form-group">
+                        <label for="form19">Treatment</label>
+                        <div class="md-form amber-textarea active-amber-textarea"><br>
+                            <textarea formControlName="treatment" id="form19" class="md-textarea form-control"
+                                rows="4"></textarea>
+                            <small *ngIf="isFormSubmitted && f.treatment.errors && f.treatment.errors.required"
+                                class="text-danger">
+                                Treatment is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Outcome -->
+                    <div class="form-group">
+                        <label for="form19">Outcome</label>
+                        <div class="md-form amber-textarea active-amber-textarea"><br>
+                            <textarea id="form19" formControlName="outcome" class="md-textarea form-control"
+                                rows="4"></textarea>
+                            <small *ngIf="isFormSubmitted && f.outcome.errors && f.outcome.errors.required"
+                                class="text-danger">
+                                Outcome is required
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <!-- Prescription Section -->
+                    <label for="form19">Prescription</label>
+
+                    <div [formGroup]="prescriptionForm" (keyup.enter)='onAddPrescription()' class="row my-4">
+
+                        <!-- Service Name -->
+                        <div class="col-md-2">
+                            <label for="">Name</label>
+                            <input type="text" formControlName="name" class="form-control">
+                            <small *ngIf="isFormSubmitted && f2.name.errors && f2.name.errors.required"
+                                class="text-danger">
+                                Name is Required
+                            </small>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="col-md-2 ">
+                            <label for="">Quantity</label>
+                            <input formControlName="quantity" type="number" class="form-control" placeholder="">
+                            <small *ngIf="isFormSubmitted && f2.quantity.errors && f2.quantity.errors.required"
+                                class="text-danger">
+                                Quantity is Required
+                            </small>
+                        </div>
+                        <!-- Days -->
+                        <div class="col-md-2 ">
+                            <label for="">Days</label>
+                            <input type="number" formControlName="days" class="form-control">
+                            <small *ngIf="isFormSubmitted && f2.days.errors && f2.days.errors.required"
+                                class="text-danger">
+                                Days are Required
+                            </small>
+                        </div>
+                        <div formGroupName='time' class="col-md-4">
+                            <label for="">Days</label>
+                            <div class="d-md-flex mt-md-4">
+                                <div class="custom-control custom-checkbox mr-2">
+                                    <input formControlName='morning' type="checkbox" class="custom-control-input"
+                                        id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Morning</label>
+                                </div>
+                                <div class="custom-control custom-checkbox mr-2">
+                                    <input formControlName='afternoon' type="checkbox" class="custom-control-input"
+                                        id="customCheck2">
+                                    <label class="custom-control-label" for="customCheck2">Afternoon</label>
+                                </div>
+                                <div class="custom-control custom-checkbox mr-2">
+                                    <input formControlName='evening' type="checkbox" class="custom-control-input"
+                                        id="customCheck3">
+                                    <label class="custom-control-label" for="customCheck3">Evening</label>
+                                </div>
+                                <div class="custom-control custom-checkbox mr-2">
+                                    <input formControlName='night' type="checkbox" class="custom-control-input"
+                                        id="customCheck4">
+                                    <label class="custom-control-label" for="customCheck4">Night</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-1 mt-md-4">
+                            <button (click)='onAddPrescription()' class="btn btn-primary mt-2 btn-block">Add &nbsp;
+                                <i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="addedPrescriptions.length !== 0" class="row my-4">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Name</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th class="text-center">Days</th>
+                                            <th class="">Time</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of addedPrescriptions;let i = index">
+                                            <td class="text-center"> {{i+1}} </td>
+                                            <td class="custom-width"> {{item?.name}} </td>
+                                            <td class="text-center">{{item?.quantity}} </td>
+                                            <td class="text-center"> {{item?.days}} </td>
+                                            <td class="">
+                                                <div class="">
+                                                    <div *ngIf="item?.time.morning"
+                                                        class="custom-control custom-checkbox disabled mr-2">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            [checked]='item?.time.morning' disabled id="customCheck5">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck5">Morning</label>
+                                                    </div>
+                                                    <div *ngIf="item?.time.afternoon"
+                                                        class="custom-control custom-checkbox disabled mr-2">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            [checked]='item?.time.afternoon' disabled id="customCheck6">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck6">Afternoon</label>
+                                                    </div>
+                                                    <div *ngIf="item?.time.evening"
+                                                        class="custom-control custom-checkbox disabled mr-2">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            [checked]='item?.time.evening' disabled id="customCheck7">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck7">Evening</label>
+                                                    </div>
+                                                    <div *ngIf="item?.time.night"
+                                                        class="custom-control custom-checkbox disabled mr-2">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            [checked]='item?.time.night' disabled id="customCheck8">
+                                                        <label class="custom-control-label"
+                                                            for="customCheck8">Night</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0)"> <i (click)='onEditPrescription(i)'
+                                                        class="fas text-success pointer fa-lg fa-pencil-alt"></i></a>
+                                                <a href="javascript:void(0)"> <i (click)='delet(i)'
+                                                        class="fas pointer ml-3 text-danger fa-lg fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="text-right">
+                      <!-- Buttons -->
+                      <a (click)="onClickCancel()" href="javascript:void(0)"
+                      class="btn btn-dark waves-effect waves-light">Cancel</a>
+                      <button (click)="onClickSave()" type="submit"
+                      class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

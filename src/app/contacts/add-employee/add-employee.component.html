@@ -1,0 +1,94 @@
+<!-- Add new Employee Modal -->
+<div class="modal-body">
+    <form [formGroup]="form" class="form-horizontal form-material">
+        <div class="form-group">
+
+            <!-- Role Selection -->
+            <div class="col-md-12 m-b-20">
+                <label class="">Contact Category</label>
+                <select class="form-control" formControlName="role">
+                    <option *ngFor="let r of roles;" [value]="r.name">{{r.name}}</option>
+                </select>
+                <small *ngIf="isFormSubmitted && f.role.errors && f.role.errors.required" class="text-danger">
+                    Select a Category
+                </small>
+            </div>
+
+            <!--Name  -->
+            <div class="col-md-12 m-b-20">
+                <input formControlName="name" type="text" class="form-control" placeholder="Type name">
+                <small *ngIf="isFormSubmitted && f.name.errors && f.name.errors.required" class="text-danger">
+                    Name is required
+                </small>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-12 m-b-20">
+                <input formControlName="email" type="email" class="form-control" placeholder="Email">
+                <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.required" class="text-danger">
+                    Email is Required
+                </small>
+                <small *ngIf="isFormSubmitted && f.email.errors && f.email.errors.email" class="text-danger">
+                    Enter Valid Email Address
+                </small>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-12 m-b-20">
+                <input formControlName="phone" type="number" class="form-control" placeholder="Phone">
+                <small *ngIf="isFormSubmitted && f.phone.errors && f.phone.errors.required" class="text-danger">
+                    Phone Number is Required
+                </small>
+            </div>
+
+            <!-- Date of Birth  -->
+            <!-- <div class="col-md-12 m-b-20">
+                <div class="input-group">
+                    <input formControlName="dob" type="input" class="form-control" placeholder="Date of birth" name="dp" ngbDatepicker
+                        #da="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button  class="btn btn-outline-secondary fa fa-calendar"
+                            (click)="da.toggle()" type="button"></button>
+                    </div> -->
+                    <!-- <input formControlName="dob" type="date" class="form-control" placeholder="Date of joining"> -->
+                    
+                <!-- </div>
+                <small *ngIf="isFormSubmitted && f.dob.errors && f.dob.errors.required" class="text-danger">
+                    Select Date of Birth
+                </small>
+
+            </div> -->
+
+            <!-- joining Date -->
+            <!-- <div class="col-md-12 m-b-20">
+                <div class="input-group">
+                    <input type="input" formControlName="joiningDate" class="form-control" placeholder="Joining date" name="dp" ngbDatepicker
+                        #db="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button  class="btn btn-outline-secondary fa fa-calendar"
+                            (click)="db.toggle()" type="button"></button>
+                    </div>
+                   
+                </div>
+                <small *ngIf="isFormSubmitted && f.joiningDate.errors && f.joiningDate.errors.required"
+                class="text-danger">
+                Select Joining Date
+            </small>
+            </div> -->
+
+            <!-- Salary -->
+            <!-- <div class="col-md-12 m-b-20">
+                <input formControlName="salary" type="number" class="form-control text-decoration-none"
+                    placeholder="Salary">
+                <small *ngIf="isFormSubmitted && f.salary.errors && f.salary.errors.required" class="text-danger">
+                    Enter Salary
+                </small>
+            </div> -->
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <a (click)=" onSave()" class="btn btn-info text-white waves-effect">Save</a>
+    <!-- <a (click)="onClose()" class="btn btn-default waves-effect" >Cancel</a> -->
+</div>

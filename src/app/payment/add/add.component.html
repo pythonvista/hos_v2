@@ -1,0 +1,159 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><b>INVOICE</b> <span class="pull-right"></span></h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <address>
+                            <h3> &nbsp;<b class="text-danger"> {{hospital?.name}} </b></h3>
+                            <p class="text-muted m-l-5"> {{hospital?.address}},
+                                <br /> {{hospital?.city}},
+                                <br /> {{hospital?.state}},
+                                <br /> Phone: {{hospital?.phone}} </p>
+                        </address>
+                    </div>
+                    <div [formGroup]="form2" class="col-md-5">
+                        <h3>To,</h3>
+                        <div class="mt-4">
+                            <label class="col-md-12 pl-0" for="example-text">Search Patient
+                            </label>
+                            <div class="">
+                                <ng-select [items]="patients" placeholder="Search Patient" bindLabel="name"
+                                    formControlName="patient" bindValue="_id" [typeahead]="patientInput$">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        <span *ngIf="item">{{item.username}}-{{item.name}}</span>
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{item.username}}-{{item.name}}
+                                    </ng-template>
+                                </ng-select>
+                                <small *ngIf="isFormSubmitted2 && f2.patient.errors && f2.patient.errors.required"
+                                    class="text-danger">
+                                    Patient is Required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="pl-0" for="example-text">Search Doctor
+                            </label>
+                            <div class="">
+                                <ng-select [items]="doctors" formControlName="doctor" placeholder="Search Doctor"
+                                    bindLabel="name" bindValue="_id" [typeahead]="doctorInput$">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        <span *ngIf="item">{{item.username}}-{{item.name}}</span>
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{item.username}}-{{item.name}}
+                                    </ng-template>
+                                </ng-select>
+                                <small *ngIf="isFormSubmitted2 && f2.doctor.errors && f2.doctor.errors.required"
+                                    class="text-danger">
+                                    Doctor is Required.
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div [formGroup]="form" (keyup.enter)='onAddItem()' class="row mt-4">
+
+                    <!-- Service Name -->
+                    <div class="col-md-3">
+                        <label for="">Service Name</label>
+                        <input type="text" formControlName="serviceName" class="form-control">
+                        <small *ngIf="isFormSubmitted && f.serviceName.errors && f.serviceName.errors.required"
+                            class="text-danger">
+                            Service Name is Required
+                        </small>
+                    </div>
+                    <!-- Quantity -->
+                    <div class="col-md-3 ">
+                        <label for="">Quantity</label>
+                        <input formControlName="quantity" type="number" class="form-control" placeholder="">
+                        <small *ngIf="isFormSubmitted && f.quantity.errors && f.quantity.errors.required"
+                            class="text-danger">
+                            Quantity is Required
+                        </small>
+                    </div>
+                    <!-- Charges -->
+                    <div class="col-md-3 ">
+                        <label for="">Charges</label>
+                        <input type="number" formControlName="price" class="form-control" placeholder="₦">
+                        <small *ngIf="isFormSubmitted && f.price.errors && f.price.errors.required" class="text-danger">
+                            price is Required
+                        </small>
+                    </div>
+                    <div class="col-md-3 mt-md-4">
+                        <button (click)='onAddItem()' class="btn btn-primary mt-2 btn-block">Add &nbsp; <i
+                                class="fas fa-plus"></i></button>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive m-t-40">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Item Name</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Charges</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of paymentItems; let i=index">
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="custom-width"> {{item?.serviceName}} </td>
+                                        <td class="text-center">{{item?.quantity}} </td>
+                                        <td class="text-center">{{item?.price | currency :"&#8358;"}} </td>
+                                        <td class="text-center">{{item?.price * item?.quantity | currency :"&#8358;"}}
+                                        </td>
+                                        <td class="text-center">
+                                            <span> <i (click)='onEditItem(i)'
+                                                    class="fas text-success pointer fa-lg fa-pencil-alt"></i></span>
+                                            <span> <i (click)='delete(i)'
+                                                    class="fas pointer ml-3 text-danger fa-lg fa-trash"></i></span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right m-t-30 text-right">
+                            <p>Sub - Total amount: {{getSubTotal() | currency :"&#8358;"}} </p>
+                            <!-- <p>vat (10%) : $160 </p> -->
+                            <div [formGroup]="form2" class="input-group ">
+                                <label class="mt-2" for="">Discount: &nbsp; </label>
+                                <input formControlName="discount" type="number" [(ngModel)]='discount'
+                                    class="form-control" placeholder="Discount">
+                            </div>
+                            <hr>
+                            <h3><b>Total :</b> {{applyDiscount()| currency :"&#8358;"}} </h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="text-right">
+                            <button (click)='onProceed()' class="btn btn-danger" type="submit"> Proceed to payment
+                            </button>
+                            <button onClick="javascript:window.print();" class="btn btn-default btn-outline"
+                                type="button"> <span> Print</span> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .row -->

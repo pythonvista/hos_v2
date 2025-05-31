@@ -1,0 +1,8 @@
+.btn:hover {
+    color: #212529 !important;
+    text-decoration: none !important;
+}
+.btn-link:hover {
+    color: #f95c2e !important;
+    text-decoration: underline !important;
+}

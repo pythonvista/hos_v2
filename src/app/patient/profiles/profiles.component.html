@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card o-hidden">
+            <div class="card-body">
+                <div class="col-md-4 p-3">
+                    <div class="right-inner-addon">
+                        <ng-select [items]="patientsList" placeholder="Search Patient" bindLabel="name" autofocus
+                            bindValue="_id" [typeahead]="patientInput$" (change)="onSearchChange($event)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <span *ngIf="item.user">{{item.user.username}}-{{item.user.name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                                {{item.user.username}}-{{item.user.name}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="table-responsive">
+                        <div *ngIf="patients == null ||patients?.length==0">
+                            <h5>No Record Found</h5>
+                        </div>
+                        <table class="table text-left" *ngIf="!isLoader">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Personal Info</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">User Role</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of patients; let i = index " class="dataTables_wrapper">
+                                    <td class="table-srno">{{i + ((page - 1) * limit)+1}}</td>
+                                    <td>
+                                        <p class="m-0"><a href="javascript:void(0)" (click)="onClickProfile(item._id)">
+                                                {{item.user.name}}</a></p>
+                                        <p class="m-0">{{item.user.email}}</p>
+                                        <p class="m-0">{{item.user.phone}}</p>
+                                    </td>
+                                    <td class="username">
+                                        {{item.user.username}}
+                                    </td>
+                                    <td class="user-role">
+                                        Paitent </td>
+                                    <td class="user-status">
+                                        <span class="badge badge-sm  badge-pill"
+                                            [ngClass]="item.user.active?  'badge-success': 'badge-danger'">{{item.user.active
+                                            ? 'active' : 'inactive'}}</span>
+                                    </td>
+                                    <td class="user-date">
+                                        {{item.user.createdAt | date : 'longDate'}} </td>
+                                    <td>
+                                        <a href="javascript:void(0)">
+                                            <i (click)="onClickProfile(item._id)" class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <!-- <td *ngxPermissionsOnly="['patient']">
+                                        <a><button type="button" class="btn btn-success"
+                                                (click)="onClickEdit(item._id)">
+                                                Edit</button></a> &nbsp;
+                                        <button type="button" (click)="delet(i)" class="btn btn-danger"> Delete</button>
+                                    </td> -->
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <loader *ngIf="isLoader"></loader>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <span class="pt-3">showing {{((page-1) * limit) + patients?.length }} of {{totalCount}}
+                                entries</span>
+
+                            <app-pagination (onPageChange)="onClickPage($event)" [page]='this.page' [limit]='this.limit'
+                                [totalDocs]='this.totalCount'> </app-pagination>
+
+                            <!-- Pagination -->
+                            <!-- <nav aria-label="Page navigation example" class="pagination">
+                                <ul class="pagination" *ngIf="totalCount > limit">
+                                    <li class="page-item" *ngIf="page > 0">
+                                        <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)"
+                                        *ngIf="(totalCount/limit) >= 0">
+                                        <a class="page-link" href="javascript:void(0)">1</a>
+                                    </li>
+
+
+                                    <li class="page-item" [ngClass]="{'active': page == 1}"
+                                        *ngIf="(totalCount/limit) >= 1">
+                                        <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+                                    </li>
+
+
+                                    <li class="page-item" [ngClass]="{'active': page == 2}"
+                                        *ngIf="(totalCount/limit) >= 2">
+                                        <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+                                    </li>
+
+                                    <li class="page-item" [ngClass]="{'active': page > 2}"
+                                        *ngIf="((totalCount/limit) > 3) && (totalCount > (limit*(page+1)))">
+                                        <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

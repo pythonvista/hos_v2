@@ -1,0 +1,83 @@
+<div class="row" *ngIf="!isLoader">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3><b>INVOICE</b> <span class="pull-right"># {{bill?._id}} </span></h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <address>
+                                <h3> &nbsp;<b class="text-danger"> {{bill?.hospital.name}} </b></h3>
+                                <p class="text-muted m-l-5"> {{bill?.hospital.address}},
+                                    <!-- <br/> Nr' Viswakarma Temple, -->
+                                    <br /> {{bill?.hospital.city}},
+                                    <br /> {{bill?.hospital.state}},
+                                    <br /> Phone: {{bill?.hospital?.phone}} </p>
+
+
+                            </address>
+                        </div>
+                        <div class="pull-right text-right">
+                            <address>
+                                <h3>To,</h3>
+                                <h4 class="font-bold">{{bill?.patient.user.name}}</h4>
+                                <!-- <p class="text-muted m-l-30">E 104, Dharti-2,
+                                    <br/> Nr' Viswakarma Temple,
+                                    <br/> Talaja Road,
+                                    <br/> Bhavnagar - 364002</p> -->
+                                <h3>Doctor,</h3>
+                                <h4 class="font-bold">{{bill?.doctor.user.name}}</h4>
+                                <p class="m-t-30"><b>Invoice Date : </b> <i class="fa fa-calendar"></i>
+                                    {{bill?.date|date:'shortDate'}}</p>
+                                <!-- <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2020</p> -->
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive m-t-40">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Item Name</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Charges</th>
+                                        <th class="text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of bill?.items;let i = index">
+                                        <td class="text-center">{{i+1}} </td>
+                                        <td>{{item?.serviceName}} </td>
+                                        <td class="text-right"> {{item?.quantity}} </td>
+                                        <td class="text-right">{{item?.price| currency :"&#8358;"}} </td>
+                                        <td class="text-right">{{item?.price * item?.quantity}} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-right m-t-30 text-right">
+                            <p>Sub - Total amount:{{getSubTotal()| currency :"&#8358;"}} </p>
+                            <p>Discount ({{bill?.discount}} %) : {{getDiscount()| currency :"&#8358;"}} </p>
+                            <hr>
+                            <h3><b>Total :</b>{{applyDiscount()| currency :"&#8358;"}} </h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="text-right">
+                            <!-- <button class="btn btn-danger" type="submit"> Proceed to payment </button> -->
+                            <button onClick="javascript:window.print();" class="btn btn-default btn-outline"
+                                type="button"> <span> Print</span> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<loader *ngIf="isLoader"></loader>
+<!-- .row -->

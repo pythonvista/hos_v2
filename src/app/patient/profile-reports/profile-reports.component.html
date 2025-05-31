@@ -1,0 +1,191 @@
+<div class="card-body">
+    <div class="d-flex align-items-center justify-content-between m-0">
+        <p class="container-fluid text-left">Total Reports: {{totalCount}}</p>
+
+        <div *ngxPermissionsOnly="['doctor']" class="container-fluid mb-3 text-right">
+            <button (click)="open()" class="btn btn-outline-info" type="button"><i class="fa fa-plus-circle"
+                    aria-hidden="true"></i> Create Ticket </button>
+        </div>
+    </div>
+
+
+    <ul class="list-group">
+
+        <li *ngFor="let report of reports" class="list-group-item">
+            <a href="javascript:void(0)" (click)="openDetail(report)">
+                {{report.subject}}
+            </a>
+            <span class="pull-right ">{{report?.updatedAt| date:'d/MMM/y'}}</span>
+            <span class="pull-right mr-2 mr-md-4">{{report.status}}</span>
+        </li>
+
+
+    </ul>
+
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="pagination">
+        <ul class="pagination" *ngIf="totalCount > limit">
+            <li class="page-item" *ngIf="page > 0">
+                <a class="page-link" (click)="onClickPage(page - 1 )" href="javascript:void(0)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+
+            <li class="page-item" [ngClass]="{'active': page == 0}" (click)="onClickPage(0)"
+                *ngIf="(totalCount/limit) >= 0">
+                <a class="page-link" href="javascript:void(0)">1</a>
+            </li>
+
+
+            <li class="page-item" [ngClass]="{'active': page == 1}" *ngIf="(totalCount/limit) >= 1">
+                <a class="page-link" href="javascript:void(0)" (click)="onClickPage(1)">2</a>
+            </li>
+
+
+            <li class="page-item" [ngClass]="{'active': page == 2}" *ngIf="(totalCount/limit) >= 2">
+                <a class="page-link" href="javascript:void(0)" (click)="onClickPage(2)">3</a>
+            </li>
+
+            <li class="page-item" [ngClass]="{'active': page > 2}"
+                *ngIf="((totalCount/limit) > 3) && (totalCount > (limit*(page+1)))">
+                <a class="page-link" (click)="onClickPage(page + 1 )" href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<ng-template #createNewTicket>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary">Create new Ticket</h4>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div class="modal-body">
+
+            <div class="form-group">
+                <!-- Disease Input -->
+                <label class="col-md-12">Category</label>
+                <div class="col-md-12 mt-3">
+                    <ng-select formControlName="category" placeholder="Select Category" (change)='chnageSubCategory()'
+                        [items]="categories">
+                    </ng-select>
+
+                    <small *ngIf="isFormSubmitted && f.category.errors && f.category.errors.required"
+                        class="text-danger">
+                        Category is Required.
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!-- Disease Input -->
+                <label class="col-md-12">Sub Category</label>
+                <div class="col-md-12 mt-3">
+                    <ng-select formControlName="subCategory" placeholder="Select Sub Category"
+                        [items]="selectedSubCategories">
+                    </ng-select>
+
+                    <small *ngIf="isFormSubmitted && f.subCategory.errors && f.subCategory.errors.required"
+                        class="text-danger">
+                        Sub Category is Required.
+                    </small>
+                </div>
+            </div>
+            <!-- Subject -->
+            <div class="form-group">
+                <label class="col-md-12" for="Subject">Subject
+                </label>
+                <div class="col-md-12">
+                    <input type="text" formControlName="subject" class="form-control" placeholder="enter your Subject">
+                    <!-- subject Validation -->
+                    <small *ngIf="isFormSubmitted && f.subject.errors && f.subject.errors.required" class="text-danger">
+                        Subject is Required.
+                    </small>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+        </div>
+    </form>
+</ng-template>
+<ng-template #ticket>
+    <div class="modal-header">
+        <h4 class="modal-title text-primary">{{reportObj.subject}}</h4>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="col-md-12">
+            <div class="pull-left">
+                <address>
+                    <h3> &nbsp;<b class="text-danger"> {{reportObj?.hospital?.name}} </b></h3>
+                    <p class="text-muted m-l-5"> {{reportObj?.hospital?.address}},
+                        <br /> {{reportObj?.hospital?.city}}, {{reportObj?.hospital?.state}}
+                        <br /> Phone: {{reportObj?.hospital?.phone}}
+                    </p>
+                </address>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-12">Category: {{reportObj.category}}</label>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-md-12">Sub Category: {{reportObj.subCategory}}</label>
+
+        </div>
+        <div class="form-group">
+
+            <label class="col-md-12">Status: {{reportObj.status}}</label>
+
+        </div>
+
+        <div class="form-group" *ngIf="reportObj.description !== ''">
+            <label class="col-md-12">Description:
+            </label>
+            <div class="col-md-12">
+                <p>{{reportObj.description}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-12">Files:
+            </label>
+            <div class="col-md-12">
+                <ul class="list-group">
+
+                    <li *ngFor="let image of reportObj.files; let i = index" class="list-group-item">
+                        <a href="javascript:void(0)" (click)="openLightBox(i)">
+                            {{getImageName(image)}}
+                        </a>
+
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</ng-template>
