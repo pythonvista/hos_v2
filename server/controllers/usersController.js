@@ -8,6 +8,7 @@ const deleter = require("../utils/deleter");
 const util = require("util");
 const responseHandler = require("../utils/response-handler");
 const config = require('../config');
+const { createBcrypt } = require("../utils/bcrypt-helper");
 var async = require('async');
 global.crypto = require('crypto')
 
@@ -171,13 +172,6 @@ signToken = user => {
   }, config.JWT_SECRET);
 }
 
-const createBcrypt = password => {
-  const genSalt = util.promisify(bcrypt.genSalt);
-  const genHash = util.promisify(bcrypt.hash);
-  return genSalt(10).then(salt => {
-    return genHash(password, salt);
-  });
-};
 
 const comparePassword = (password, hash) => {
   return bcrypt.compare(password, hash);
@@ -460,7 +454,6 @@ module.exports = {
   toggleActive,
   toggleDelete,
   updateUser,
-  createBcrypt,
   getAdminID,
   forgotPassword,
   resetPassword,

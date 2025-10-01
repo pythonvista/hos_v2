@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const User = require('../models/User');
-const usersController = require('../controllers/usersController');
+const { createBcrypt } = require('../utils/bcrypt-helper');
 var router = require('express').Router();
 
 module.exports = function (app) {
@@ -10,7 +10,7 @@ module.exports = function (app) {
         admin.email = "admin@gmail.com";
         admin.role = "admin";
         admin.username = "MFA99999";
-        admin.password = await usersController.createBcrypt("12345");
+        admin.password = await createBcrypt("12345");
         admin.name = "Super Admin";
         admin.role = 'admin';
         admin.image = '/images/user.jpg';

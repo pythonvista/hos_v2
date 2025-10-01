@@ -28,7 +28,7 @@ module.exports = {
         baseUrl: process.env.MONGODB_URI || `mongodb://localhost:/HOS`
     },
 
-    transport: nodemailer.createTransporter({
+    transport: nodemailer.createTransport({
         host: process.env.SMTP_HOST || "smtp.googlemail.com",
         port: process.env.SMTP_PORT || 587,
         secure: false, // secure:true for port 465, secure:false for port 587
