@@ -85,7 +85,6 @@ module.exports = function (app) {
     app.get('/api/patient', passportJWT, controllers.patients.search); // this return only those patients who I created as a Hospital
     app.put('/api/updatePatient/:id', passportJWT, controllers.patients.updatePatient);
     app.put('/api/updateFixedDisease/:id', passportJWT, controllers.patients.updatePatientFixedDisease);
-    app.get('',  passportJWT,)
 
     // medical History Follow Up
 

@@ -134,10 +134,10 @@ async function signup(req, res, next) {
 
 async function signIn(req, res, next) {
   if (!req.user.approved) {
-    res.status(201).json({ success: false, msg: `Your account is not approved, Contact to Administrator` });
+    return res.status(201).json({ success: false, msg: `Your account is not approved, Contact to Administrator` });
   }
   if (!req.user.active) {
-    res.status(201).json({ success: false, msg: `Your account is inactive, Contact to Administrator` });
+    return res.status(201).json({ success: false, msg: `Your account is inactive, Contact to Administrator` });
   }
   if (!req.user.isEmailVerified && req.user.role !== 'admin') {
     return res.status(422).json({ info: 'Verify Your Email first' });
@@ -151,7 +151,6 @@ async function signIn(req, res, next) {
     if (req.user.role === 'FDO') { roleId = await FrontDeskOfficer.findOne({ user: req.user._id }, '_id') }
     if (req.user.role === 'pharmacy') { roleId = await Pharmacy.findOne({ user: req.user._id }, '_id') }
 
-
     const token = signToken(req.user);
     res.cookie('access_token', token, {
       httpOnly: true
@@ -159,14 +158,13 @@ async function signIn(req, res, next) {
     let role;
     if (roleId && roleId._id) role = roleId._id;
     responseHandler(res, 200, { user: req.user, roleId: role, token: token });
-
   }
 }
 
 signToken = user => {
   return JWT.sign({
     iss: 'CodeWorkr',
-    sub: user.id,
+    sub: user._id,
     iat: new Date().getTime(), // current time
     exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
   }, config.JWT_SECRET);
