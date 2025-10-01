@@ -24,8 +24,8 @@ module.exports = {
         port: process.env.DB_PORT || 12706,
         user: process.env.DB_USER || "",
         password: process.env.DB_PASSWORD || "",
-        dbName: process.env.DB_DATABASE || "HOS",
-        baseUrl: process.env.MONGODB_URI || `mongodb://localhost:/HOS`
+        dbName: process.env.DB_DATABASE || "EMR",
+        baseUrl: process.env.MONGO_URI || `mongodb://localhost:/HOS`
     },
 
     transport: nodemailer.createTransport({
