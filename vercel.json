@@ -11,15 +11,8 @@
                     "server/**",
                     "src/**",
                     "e2e/**",
-                    "routes/**",
-                    "services/**",
-                    "middleware/**",
-                    "models/**",
-                    "config/**",
-                    "core/**",
-                    "utils/**",
-                    "tests/**",
-                    "docs/**"
+                    "package.json",
+                    "package-lock.json"
                 ],
                 "maxLambdaSize": "50mb"
             }

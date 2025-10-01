@@ -1,5 +1,6 @@
 const { timeStamp } = require("console");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 // var timestamps = require('mongoose-timestamp');
 var timestamps = require('mongoose-timestamp2');
 
@@ -79,7 +80,7 @@ const UserSchema = new Schema({
 
 UserSchema.methods.isValidPassword = async function (newPassword) {
     try {
-        return await bcrypt.compare(newPassword, this.local.password);
+        return await bcrypt.compare(newPassword, this.password);
     } catch (error) {
         throw new Error(error);
     }
