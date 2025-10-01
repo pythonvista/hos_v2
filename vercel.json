@@ -1,1 +1,35 @@
 
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "./app.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "dist/**",
+                    "server/**",
+                    "src/**",
+                    "e2e/**",
+                    "routes/**",
+                    "services/**",
+                    "middleware/**",
+                    "models/**",
+                    "config/**",
+                    "core/**",
+                    "utils/**",
+                    "tests/**",
+                    "docs/**"
+                ],
+                "maxLambdaSize": "50mb"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ]
+   
+}
