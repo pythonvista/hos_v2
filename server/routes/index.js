@@ -2,16 +2,14 @@ var controllers = require("./../controllers");
 const resp = require("../utils/response-handler");
 const multy = require("../custom-middlewares/multy");
 const patientDocMulter = require('../custom-middlewares/patientDocMulter')
-
+const subStatus = require('../custom-middlewares/subHandler').subStatus;
+const subAppointmentStatus = require('../custom-middlewares/subAppointment').subAppointmentStatus;
 const passport = require('passport');
 const passportSignIn = passport.authenticate('local', { session: false });
 const passportJWT = passport.authenticate('jwt', { session: false });
 module.exports = function (app) {
-
-
     app.use(passport.initialize());
     require('../custom-middlewares/passport');
-
     app.get(`/api/getAdmin`, controllers.users.getAdminID);
 
     // password Reset and forgot password
@@ -27,7 +25,6 @@ module.exports = function (app) {
     app.get(`/api/hosRequest/:id`, passportJWT, controllers.hospitalRequest.get);
     app.put(`/api/hosRequest/updateStatus/:id`, passportJWT, controllers.hospitalRequest.updateStatus);
 
-
     // Graphs
     // admin panel graph data api's
     app.get(`/api/graph/adminHopitalGraphData`, passportJWT, controllers.dashboard.adminHospitalGraph);
@@ -37,9 +34,8 @@ module.exports = function (app) {
     // HOS panel graph data
     app.get(`/api/graph/appointmentGraphData`, passportJWT, controllers.dashboard.appointmentGraph);
     app.get(`/api/graph/patientGraphData`, passportJWT, controllers.dashboard.patientGraph);
+    app.get(`/api/graph/newpatient`, passportJWT, controllers.dashboard.newPatient);
     app.get(`/api/graph/paymentsGraphData`, passportJWT, controllers.dashboard.billingGraph);
-
-
 
     //Notifications
     app.get('/api/getNotifications/:id', passportJWT, controllers.notifications.getNotificationsByUserID);
@@ -65,10 +61,12 @@ module.exports = function (app) {
     app.get('/api/dashboard/fdo', passportJWT, controllers.dashboard.fdo);
     app.get('/api/dashboard/pharmacy', passportJWT, controllers.dashboard.pharmacy);
 
-
-
+    
     app.get('/api/get', passportJWT, controllers.users.getAll);
-
+ 
+    // passportJWT,
+    // Subcription 
+    app.get('/api/subscription/create/:id',passportJWT,  controllers.subscription.createSub); // this will create a subscription for a patient with id in params
 
     // Hospital
     app.get('/api/hospitals', passportJWT, controllers.hospitals.getAll);
@@ -76,15 +74,13 @@ module.exports = function (app) {
     app.post('/api/hospitals', passportJWT, controllers.hospitals.createHospital);
     app.put('/api/hospitals/:id', passportJWT, controllers.hospitals.updateHospital);
 
-
-
     // Patient
     app.post("/api/createPatient", passportJWT, controllers.patients.createPatient);
     app.get('/api/patients', passportJWT, controllers.patients.getAll); // this return only those patients who I created as a Hospital
-    app.get('/api/patients/:id', passportJWT, controllers.patients.get); // this returns a patient  with  id in parrms
+    app.get('/api/patients/:id', passportJWT,subStatus, controllers.patients.get); // this returns a patient  with  id in parrms
     app.get('/api/patient', passportJWT, controllers.patients.search); // this return only those patients who I created as a Hospital
-    app.put('/api/updatePatient/:id', passportJWT, controllers.patients.updatePatient);
-    app.put('/api/updateFixedDisease/:id', passportJWT, controllers.patients.updatePatientFixedDisease);
+    app.put('/api/updatePatient/:id', passportJWT, subStatus, controllers.patients.updatePatient);
+    app.put('/api/updateFixedDisease/:id', passportJWT, subStatus, controllers.patients.updatePatientFixedDisease);
 
     // medical History Follow Up
 
@@ -153,11 +149,11 @@ module.exports = function (app) {
 
 
 
-    app.post("/api/createAppointment", passportJWT, controllers.appointments.createAppointment);
+    app.post("/api/createAppointment", passportJWT, subStatus, controllers.appointments.createAppointment);
     app.get('/api/appointment/:id', passportJWT, controllers.appointments.get); // this returns an appointment  with  id in parrms
     app.delete('/api/appointment/:id', passportJWT, controllers.appointments.del); // this delete an appointment  with  id in parrms
     app.put('/api/appointment/:id', passportJWT, controllers.appointments.update); // this update an appointment  with  id in parrms
-    app.get("/api/appointment", passportJWT, controllers.appointments.getAll);
+    app.get("/api/appointment", passportJWT, subAppointmentStatus, controllers.appointments.getAll);
 
     // Employee
     app.post('/api/employee/createEmployee', passportJWT, controllers.employee.createEmployee); //done
@@ -183,6 +179,16 @@ module.exports = function (app) {
     app.get('/api/chat/history/:userId', passportJWT, controllers.chat.history);
     app.put('/api/readMessage/:id', passportJWT, controllers.chat.updateMessageStatusRead);
 
+    app.get('/api/testing', (req, res) => {
+        res.json({
+            status: 200,
+            message: "API is working fine",
+            data: {
+                message: "API is working fine"
+            }
+        });
+    });
+
     // router.route('/dashboard')
     // .get(passportJWT, UsersController.dashboard);
 
@@ -191,7 +197,6 @@ module.exports = function (app) {
 
     // Billing Api's
     app.get('/api/billing/get', passportJWT, controllers.billing.get);
-    app.get('/api/billing/outstanding', passportJWT, controllers.billing.outstanding);
     app.post('/api/billing/create', passportJWT, controllers.billing.create);
     app.get('/api/billing/:id', controllers.billing.getById);
     app.get('/api/billing/patient/:patientID', passportJWT, controllers.billing.getByPatientId);

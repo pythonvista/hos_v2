@@ -1,6 +1,7 @@
 "use strict";
 var nodemailer = require('nodemailer');
-
+const dotenv = require('dotenv');
+dotenv.config()
 var protocol = process.env.protocol || "http",
     host = process.env.HOST || "127.0.0.1",
     port = process.env.PORT || "3000",
@@ -24,10 +25,11 @@ module.exports = {
         port: process.env.DB_PORT || 12706,
         user: process.env.DB_USER || "",
         password: process.env.DB_PASSWORD || "",
-        dbName: process.env.DB_DATABASE || "HOS",
-        // baseUrl: `mongodb://localhost/hos`
-        baseUrl: `mongodb://localhost:/HOS`
+        dbName: process.env.DB_NAME,
+        baseUrl: process.env.MONGO_URI 
     },
+    // mongodb+ srv://medfesterm:a6X3kEGY7ToROW2a@clustere.1icdj.mongodb.net/medfest?retryWrites=true&w=majority&appName=Clustere
+    
 
 
     transport: nodemailer.createTransport({
@@ -39,6 +41,7 @@ module.exports = {
             pass: "AYOisrael90"
         }
     }),
-    JWT_SECRET: 'HOSSECRETKEY'
+    JWT_SECRET: 'HOSSECRETKEY',
+    API_BASE_URL: process.env.API_BASE_URL 
 
 };

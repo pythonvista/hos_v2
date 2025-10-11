@@ -10,14 +10,8 @@ const Doctor = require("../models/Doctor");
 const LabAttendant = require("../models/LabAttendant");
 const cookieExtractor = req => {
     let token = null;
-    if (req && req.headers && req.headers.authorization) {
-        // Extract token from "Bearer <token>" format
-        const authHeader = req.headers.authorization;
-        if (authHeader.startsWith('Bearer ')) {
-            token = authHeader.substring(7);
-        } else {
-            token = authHeader;
-        }
+    if (req && req.cookies) {
+        token = req.headers.authorization;
     }
     return token;
 }

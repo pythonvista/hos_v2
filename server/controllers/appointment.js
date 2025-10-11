@@ -2,20 +2,37 @@ const Appointment = require("../models/Appointment");
 const Patient = require("../models/Patient");
 const responseHandler = require("../utils/response-handler");
 
+
 function getAll(req, res, next) {
+    // Get appointments by doctor/patient/hospital
+    // Filter from current year onwards
+    // startDate format: "2021-01-15T13:30" (ISO string)
 
-    //get appointments by doctor
-    // get appointments by patient
-    // get appointments by hospital
+    const currentYear = new Date().getFullYear();
+    const startOfYear = new Date(currentYear, 0, 1); // January 1st of current year
+    const startOfYearISO = startOfYear.toISOString(); // Convert to ISO string for comparison
 
-    let query = {};
-    if (req.user.role === 'patient') query.patient = req.user.roleId;
-    if (req.user.role === 'doctor') query.doctor = req.user.roleId;
-    if (req.user.role === 'hospital') query.hospital = req.user._id;
-    if (req.user.role === 'FDO') query.hospital = req.user.hospital;
+    let query = {
+        startDate: { $gte: startOfYearISO } // From January 1st of current year onwards
+    };
 
+    // Role-based filtering
+    if (req.user.role === 'patient') {
+        query.patient = req.user.roleId;
+    }
+    if (req.user.role === 'doctor') {
+        query.doctor = req.user.roleId;
+    }
+    if (req.user.role === 'hospital') {
+        query.hospital = req.user._id;
+    }
+    if (req.user.role === 'FDO') {
+        query.hospital = req.user.hospital;
+    }
 
-    // get appointments for dateRange ( startDate and EndDate)
+    console.log('Query:', query); // Debug log
+    console.log('Filtering from:', startOfYearISO); // Debug: show the date we're filtering from
+
     Appointment.find(query)
         .populate({
             path: 'doctor',
@@ -30,10 +47,16 @@ function getAll(req, res, next) {
             populate: { path: 'user' }
         })
         .exec(function (err, doc) {
-            if (err) { responseHandler(res, 500, err); return; };
-            responseHandler(res, 200, doc);
+            console.log('Found appointments:', doc.length);
 
-        })
+            if (err) {
+                console.log('Error:', err);
+                responseHandler(res, 500, err);
+                return;
+            }
+
+            responseHandler(res, 200, doc);
+        });
 }
 
 function get(req, res, next) {

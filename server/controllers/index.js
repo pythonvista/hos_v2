@@ -20,5 +20,6 @@ module.exports = {
     billing: require('./billing'),
     notifications: require('./notifications'),
     upload: require('./upload'),
+    subscription: require('./subscriptionController'),
 
 };

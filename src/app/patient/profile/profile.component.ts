@@ -224,4 +224,12 @@ export class ProfileComponent implements OnInit {
       queryParams: { returnUrl: this.router.url },
     });
   }
+
+  goToSubscriptionPage() {
+    this.router.navigate(['app/subscription-required']);
+  }
+
+  goBackToPatientList() {
+    this.router.navigate(['app/patient']);
+  }
 }

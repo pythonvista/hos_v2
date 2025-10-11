@@ -1,8 +1,9 @@
 "use strict";
 var nodemailer = require('nodemailer');
-
+const dotenv = require('dotenv');
+dotenv.config()
 var protocol = process.env.protocol || "https",
-    host = process.env.HOST || "localhost",
+    host = process.env.HOST || "127.0.0.1",
     port = process.env.PORT || "3000",
     baseUrl = `${protocol}://${host}:${port}`,
     path = require("path"),
@@ -24,19 +25,23 @@ module.exports = {
         port: process.env.DB_PORT || 12706,
         user: process.env.DB_USER || "",
         password: process.env.DB_PASSWORD || "",
-        dbName: process.env.DB_DATABASE || "EMR",
-        baseUrl: process.env.MONGO_URI || `mongodb://localhost:/HOS`
+        dbName: process.env.DB_NAME,
+        baseUrl: process.env.MONGO_URI
     },
+    
+    
+
 
     transport: nodemailer.createTransport({
-        host: process.env.SMTP_HOST || "smtp.googlemail.com",
-        port: process.env.SMTP_PORT || 587,
+        host: "smtp.googlemail.com",
+        port: 587,
         secure: false, // secure:true for port 465, secure:false for port 587
         auth: {
-            user: process.env.SMTP_USER || "medfestng@gmail.com",
-            pass: process.env.SMTP_PASS || "AYOisrael90"
+            user: "medfestng@gmail.com",
+            pass: "AYOisrael90"
         }
     }),
-    JWT_SECRET: process.env.JWT_SECRET || 'HOSSECRETKEY'
+    JWT_SECRET: 'HOSSECRETKEY',
+    API_BASE_URL: process.env.API_BASE_URL 
 
 };
