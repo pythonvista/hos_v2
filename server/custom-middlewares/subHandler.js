@@ -22,7 +22,7 @@ exports.subStatus = async (req, res, next) => {
         }
 
         let userHospital = user.hospital || 'N/A';
-        if (userHospital == '60085868b36bee05b0a3e416') {
+        if (true) {
             next()
             return
         }
